@@ -8,22 +8,22 @@ public class StudyLogManager {
         logs.add(log);
     }
 
-    public void printAllLogs() {
-        for (StudyLog log: logs) {
-            log.printInfo();
-            System.out.println();
-        }
+    public List<StudyLog> getAllLogs() {
+        return logs;
     }
 
+    public List<StudyLog> getLogsByCategory(StudyCategory category) {
+        List<StudyLog> logsByCategory = new ArrayList<>();
 
-    public void printLogsByCategory(StudyCategory category) {
         for (StudyLog log: logs) {
             if (log.getCategory().equals(category)) {
-                log.printInfo();
-                System.out.println();
+                logsByCategory.add(log);
             }
         }
+
+        return logsByCategory;
     }
+
 
 
 
