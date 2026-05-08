@@ -1,18 +1,15 @@
 import java.util.List;
 import java.util.Scanner;
 
-
-
 public class Main {
-    public static StudyCategory selectCategory(Scanner input) {
+    public static StudyCategory selectCategory(Scanner scanner) {
         StudyCategory category;
         System.out.print("select category \n");
         System.out.print("1.JAVA/ 2.GIT/ 3.SPRING/ 4.DATABASE/ 5. ETC: ");
-        int num = input.nextInt();
-        input.nextLine();
+        int categoryNumber = scanner.nextInt();
+        scanner.nextLine();
 
-
-        switch (num) {
+        switch (categoryNumber) {
             case 1:
                 category = StudyCategory.JAVA;
                 break;
@@ -34,53 +31,65 @@ public class Main {
 
         return category;
     }
+
     public static void main(String[] args) {
         StudyLogManager manager = new StudyLogManager();
-        Scanner input = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("1 - addlogs");
-            System.out.println("2 - show all logs");
-            System.out.println("3 - show logs by category");
-            System.out.println("4 - show total minutes by category");
-            System.out.println("0 - end");
-            System.out.print("Please input number:");
+            System.out.println("1 - Add log");
+            System.out.println("2 - Show all logs");
+            System.out.println("3 - Show logs by category");
+            System.out.println("4 - Show total minutes by category");
+            System.out.println("0 - End");
+            System.out.print("Please input menu number:");
 
-            int number = input.nextInt();
-            input.nextLine();
+            int menuNumber = scanner.nextInt();
+            scanner.nextLine();
 
-            if (number == 0) {
+            if (menuNumber == 0) {
                 System.out.println("program ended");
                 break;
-            } else if (number == 1) {
+            } else if (menuNumber == 1) {
                 System.out.print("title:");
-                String title = input.nextLine();
+                String title = scanner.nextLine();
 
-                StudyCategory category = selectCategory(input);
+                StudyCategory category = selectCategory(scanner);
 
                 System.out.print("minutes:");
-                int minutes = input.nextInt();
-                input.nextLine();
+                int minutes = scanner.nextInt();
+                scanner.nextLine();
                 System.out.print("memo:");
-                String memo = input.nextLine();
+                String memo = scanner.nextLine();
 
                 manager.addLog(new StudyLog(title, category, minutes, memo));
+                System.out.println("log added");
 
+            } else if (menuNumber == 2) {
+                List<StudyLog> allLogs = manager.getAllLogs();
 
-            } else if (number == 2) {
-                for (StudyLog log : manager.getAllLogs()) {
-                    log.printInfo();
-                    System.out.println();
+                if (allLogs.isEmpty()) {
+                    System.out.println("no logs");
+                } else {
+                    for (StudyLog log : allLogs) {
+                        log.printInfo();
+                        System.out.println();
+                    }
                 }
-            } else if (number == 3) {
-                StudyCategory category = selectCategory(input);
+            } else if (menuNumber == 3) {
+                StudyCategory category = selectCategory(scanner);
+                List<StudyLog> logsByCategory = manager.getLogsByCategory(category);
 
-                for (StudyLog log : manager.getLogsByCategory(category)) {
-                    log.printInfo();
-                    System.out.println();
+                if (logsByCategory.isEmpty()) {
+                    System.out.println("no logs");
+                } else {
+                    for (StudyLog log : logsByCategory) {
+                        log.printInfo();
+                        System.out.println();
+                    }
                 }
-            } else if (number == 4) {
-                StudyCategory category = selectCategory(input);
+            } else if (menuNumber == 4) {
+                StudyCategory category = selectCategory(scanner);
                 System.out.println(manager.getTotalMinutesByCategory(category));
             } else {
                 System.out.println("invalid input");

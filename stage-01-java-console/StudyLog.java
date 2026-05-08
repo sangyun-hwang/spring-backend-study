@@ -16,7 +16,6 @@ public class StudyLog {
         this.category = category;
         this.minutes = minutes;
         this.memo = memo;
-
     }
 
     public void printInfo() {

@@ -15,7 +15,7 @@ public class StudyLogManager {
     public List<StudyLog> getLogsByCategory(StudyCategory category) {
         List<StudyLog> logsByCategory = new ArrayList<>();
 
-        for (StudyLog log: logs) {
+        for (StudyLog log : logs) {
             if (log.getCategory().equals(category)) {
                 logsByCategory.add(log);
             }
@@ -24,20 +24,15 @@ public class StudyLogManager {
         return logsByCategory;
     }
 
-
-
-
     public int getTotalMinutesByCategory(StudyCategory category) {
         int totalMinutes = 0;
 
-        for (StudyLog log: logs) {
+        for (StudyLog log : logs) {
             if (log.getCategory().equals(category)) {
                 totalMinutes += log.getMinutes();
             }
         }
 
         return totalMinutes;
-
     }
-
 }
