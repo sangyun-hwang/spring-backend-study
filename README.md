@@ -1,4 +1,4 @@
-# Backend Study Roadmap
+# Spring Backend Study
 
 Java 기반 백엔드와 풀스택 준비를 위한 개인 학습 레포입니다.
 
