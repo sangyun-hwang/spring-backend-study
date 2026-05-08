@@ -1,10 +1,10 @@
 public class StudyLog {
     private final String title;
-    private final String category;
+    private final StudyCategory category;
     private final int minutes;
     private final String memo;
 
-    public StudyLog(String title, String category, int minutes, String memo) {
+    public StudyLog(String title, StudyCategory category, int minutes, String memo) {
         this.title = title;
         this.category = category;
         this.minutes = minutes;
@@ -22,7 +22,7 @@ public class StudyLog {
         return title;
     }
 
-    public String getCategory() {
+    public StudyCategory getCategory() {
         return category;
     }
 

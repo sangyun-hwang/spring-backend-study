@@ -15,16 +15,8 @@ public class StudyLogManager {
         }
     }
 
-//    public void printJavaLogs() {
-//        for (StudyLog log: logs) {
-//            if (log.getCategory().equals("JAVA")) {
-//                log.printInfo();
-//                System.out.println();
-//            }
-//        }
-//    }
 
-    public void printLogsByCategory(String category) {
+    public void printLogsByCategory(StudyCategory category) {
         for (StudyLog log: logs) {
             if (log.getCategory().equals(category)) {
                 log.printInfo();
@@ -34,31 +26,8 @@ public class StudyLogManager {
     }
 
 
-//    public void printJavaTotalMinutes() {
-//        int totalMinutes = 0;
-//
-//        for (StudyLog log: logs) {
-//            if (log.getCategory().equals("JAVA")) {
-//                totalMinutes += log.getMinutes();
-//            }
-//        }
-//
-//        System.out.println("total minutes: " + totalMinutes);
-//    }
 
-//    public int getJavaTotalMinutes() {
-//        int totalMinutes = 0;
-//
-//        for (StudyLog log: logs) {
-//            if (log.getCategory().equals("JAVA")) {
-//                totalMinutes += log.getMinutes();
-//            }
-//        }
-//
-//        return totalMinutes;
-//    }
-
-    public int getTotalMinutesByCategory(String category) {
+    public int getTotalMinutesByCategory(StudyCategory category) {
         int totalMinutes = 0;
 
         for (StudyLog log: logs) {
