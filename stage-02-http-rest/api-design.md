@@ -179,3 +179,50 @@ GET /study-logs?category=[category]
 ### Note
 
 잘못된 category 값이 들어오면 `400 Bad Request`를 반환한다.
+
+## 6. Get Total Study Minutes By Category Response
+
+### Endpoint
+
+GET /study-logs/summary?category=[category]
+
+### Status Code
+
+200 OK
+
+### Query Parameters
+
+| Name | Type | Required | Description |
+| --- | --- | --- | --- |
+| category | string | yes | 합계를 조회할 공부 카테고리. JAVA, GIT, SPRING, DATABASE, ETC 중 하나 |
+
+### Response Body
+
+```json
+{
+  "category": "JAVA",
+  "totalMinutes": 100
+}
+```
+
+### Empty Category Response Body
+
+```json
+{
+  "category": "SPRING",
+  "totalMinutes": 0
+}
+```
+
+조건에 맞는 공부 기록이 없어도 합계는 `0`으로 응답한다.
+
+### Response Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| category | string | 합계를 조회한 공부 카테고리 |
+| totalMinutes | number | 해당 카테고리의 총 공부 시간 |
+
+### Note
+
+잘못된 category 값이 들어오면 `400 Bad Request`를 반환한다.
