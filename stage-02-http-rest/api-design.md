@@ -77,3 +77,54 @@ POST /study-logs
 | memo | string | 공부 기록 메모 |
 | createdAt | string | 공부 기록 생성 시간. ISO 8601 형식 |
 
+## 4. Get Study Logs Response
+
+### Endpoint
+
+GET /study-logs
+
+### Status Code
+
+200 OK
+
+### Response Body
+
+```json
+[
+  {
+    "id": 1,
+    "title": "Java class practice",
+    "category": "JAVA",
+    "minutes": 60,
+    "memo": "field and constructor",
+    "createdAt": "2026-05-11T10:30:00+09:00"
+  },
+  {
+    "id": 2,
+    "title": "Java array practice",
+    "category": "JAVA",
+    "minutes": 40,
+    "memo": "array basics",
+    "createdAt": "2026-05-11T11:20:00+09:00"
+  }
+]
+```
+
+### Empty Response Body
+
+```json
+[]
+```
+
+공부 기록이 없어도 요청 자체는 성공했으므로 `200 OK`를 반환한다.
+
+### Response Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| id | number | 서버가 생성한 공부 기록 ID |
+| title | string | 공부 기록 제목 |
+| category | string | 공부 카테고리 |
+| minutes | number | 공부 시간 |
+| memo | string | 공부 기록 메모 |
+| createdAt | string | 공부 기록 생성 시간. ISO 8601 형식 |
