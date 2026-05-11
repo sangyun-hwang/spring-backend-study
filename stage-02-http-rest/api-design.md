@@ -226,3 +226,41 @@ GET /study-logs/summary?category=[category]
 ### Note
 
 잘못된 category 값이 들어오면 `400 Bad Request`를 반환한다.
+
+## 7. Error Responses
+
+### Error Response Format
+
+```json
+{
+  "status": 400,
+  "error": "Bad Request",
+  "message": "title must not be blank"
+}
+```
+
+### Error Cases
+
+| Situation | Status Code | Error | Message |
+| --- | --- | --- | --- |
+| title이 비어 있음 | 400 | Bad Request | title must not be blank |
+| minutes가 0 이하 | 400 | Bad Request | minutes must be greater than 0 |
+| 잘못된 category | 400 | Bad Request | invalid category |
+| 존재하지 않는 공부 기록 조회 | 404 | Not Found | study log not found |
+
+### Not Found Example
+
+```json
+{
+  "status": 404,
+  "error": "Not Found",
+  "message": "study log not found"
+}
+```
+
+### Note
+
+- 400은 요청 값이 잘못됐을 때 사용한다.
+- 404는 요청한 대상이 없을 때 사용한다.
+- 에러 응답도 성공 응답처럼 일관된 JSON 형식이 있어야 한다.
+- message는 사용자가 무엇이 잘못됐는지 알 수 있게 작성한다.
