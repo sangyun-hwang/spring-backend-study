@@ -35,3 +35,45 @@ POST /study-logs
 | minutes | number | yes | 공부 시간. 0보다 커야 한다 |
 | memo | string | no | 공부 기록 메모 |
 
+## 3. Create Study Log Response
+
+### Status Code
+
+201 Created
+
+> **왜 201 Created인가요?**
+>
+> HTTP status code는 요청 결과를 숫자로 알려주는 약속입니다.
+>
+> ```text
+> 200 OK       요청 성공
+> 201 Created  새 데이터 생성 성공
+> 400 Bad Request  클라이언트 요청이 잘못됨
+> 404 Not Found    대상이 없음
+> 500 Internal Server Error 서버 내부 문제
+> ```
+
+### Response Body
+
+```json
+{
+  "id": 1,
+  "title": "Java class practice",
+  "category": "JAVA",
+  "minutes": 60,
+  "memo": "field and constructor",
+  "createdAt": "2026-05-11T10:30:00+09:00"
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| id | number | 서버가 생성한 공부 기록 ID |
+| title | string | 공부 기록 제목 |
+| category | string | 공부 카테고리 |
+| minutes | number | 공부 시간 |
+| memo | string | 공부 기록 메모 |
+| createdAt | string | 공부 기록 생성 시간. ISO 8601 형식 |
+
