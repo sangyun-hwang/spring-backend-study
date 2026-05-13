@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +38,7 @@ public class StudyLogController {
     ));
 
     @PostMapping("/study-logs")
-    public StudyLog createStudyLog(@RequestBody CreateStudyLogRequest request) {
+    public StudyLog createStudyLog(@Valid @RequestBody CreateStudyLogRequest request) {
         Long nextId = (long) (logs.size() + 1);
 
         StudyLog studyLog = new StudyLog(
