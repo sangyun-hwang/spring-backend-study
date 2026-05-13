@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
+import com.study.stage03.repository.StudyLogRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,32 +12,14 @@ import java.util.List;
 
 @Service
 public class StudyLogService {
-    private final List<StudyLog> logs = new ArrayList<>(List.of(
-            new StudyLog(
-                    1L,
-                    "Java class practice",
-                    StudyCategory.JAVA,
-                    60,
-                    "field and constructor"
-            ),
-            new StudyLog(
-                    2L,
-                    "Java array practice",
-                    StudyCategory.JAVA,
-                    40,
-                    "array basics"
-            ),
-            new StudyLog(
-                    3L,
-                    "Spring controller practice",
-                    StudyCategory.SPRING,
-                    50,
-                    "RestController and GetMapping"
-            )
-    ));
+    private final StudyLogRepository studyLogRepository;
+
+    public StudyLogService(StudyLogRepository studyLogRepository) {
+        this.studyLogRepository = studyLogRepository;
+    }
 
     public StudyLog create(CreateStudyLogRequest request) {
-        Long nextId = (long) (logs.size() + 1);
+        Long nextId = (long) (studyLogRepository.findAll().size() + 1);
 
         StudyLog studyLog = new StudyLog(
                 nextId,
@@ -46,9 +29,7 @@ public class StudyLogService {
                 request.getMemo()
         );
 
-        logs.add(studyLog);
-
-        return studyLog;
+        return studyLogRepository.save(studyLog);
     }
 
     public StudyLog getSample() {
@@ -61,6 +42,8 @@ public class StudyLogService {
     }
 
     public List<StudyLog> findAll(StudyCategory category) {
+        List<StudyLog> logs = studyLogRepository.findAll();
+
         if (category == null) {
             return logs;
         }
@@ -77,6 +60,7 @@ public class StudyLogService {
     }
 
     public StudyLogSummaryResponse getSummary(StudyCategory category) {
+        List<StudyLog> logs = studyLogRepository.findAll();
         int totalMinutes = 0;
 
         for (StudyLog log : logs) {
