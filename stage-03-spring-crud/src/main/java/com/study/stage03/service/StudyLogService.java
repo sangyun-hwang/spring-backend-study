@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
+import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.repository.StudyLogRepository;
 import org.springframework.stereotype.Service;
@@ -86,5 +87,19 @@ public class StudyLogService {
     public void deleteById(Long id) {
         StudyLog studyLog = findById(id);
         studyLogRepository.delete(studyLog);
+    }
+
+    public StudyLog update(Long id, UpdateStudyLogRequest request) {
+        StudyLog studyLog = findById(id);
+
+        StudyLog updateLog = new StudyLog(
+                studyLog.getId(),
+                request.getTitle(),
+                request.getCategory(),
+                request.getMinutes(),
+                request.getMemo()
+        );
+
+        return studyLogRepository.update(updateLog);
     }
 }

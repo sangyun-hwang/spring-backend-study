@@ -56,4 +56,15 @@ public class StudyLogRepository {
     public void delete(StudyLog studyLog) {
         logs.remove(studyLog);
     }
+
+    public StudyLog update(StudyLog updatedLog) {
+        for (int i = 0; i < logs.size(); i++) {
+            if (logs.get(i).getId().equals(updatedLog.getId())) {
+                logs.set(i, updatedLog);
+                return updatedLog;
+            }
+        }
+
+        return null;
+    }
 }

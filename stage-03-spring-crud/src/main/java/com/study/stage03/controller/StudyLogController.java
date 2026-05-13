@@ -4,11 +4,13 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
+import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.service.StudyLogService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,5 +57,13 @@ public class StudyLogController {
         studyLogService.deleteById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/study-logs/{id}")
+    public StudyLog updateStudyLog(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateStudyLogRequest request
+    ) {
+        return studyLogService.update(id, request);
     }
 }
