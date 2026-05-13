@@ -2,6 +2,7 @@ package com.study.stage03.controller;
 
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.dto.StudyLogSummaryResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,7 @@ public class StudyLogController {
         if (category == null) {
             return logs;
         }
-        
+
         List<StudyLog> filteredLogs = new ArrayList<>();
 
         for (StudyLog log : logs) {
@@ -58,5 +59,18 @@ public class StudyLogController {
         }
 
         return filteredLogs;
+    }
+
+    @GetMapping("/study-logs/summary")
+    public StudyLogSummaryResponse getSummary(@RequestParam StudyCategory category) {
+        int totalMinutes = 0;
+
+        for (StudyLog log : logs) {
+            if (log.getCategory().equals(category)) {
+                totalMinutes += log.getMinutes();
+            }
+        }
+
+        return new StudyLogSummaryResponse(category, totalMinutes);
     }
 }
