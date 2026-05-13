@@ -82,4 +82,9 @@ public class StudyLogService {
 
         return studyLog;
     }
+
+    public void deleteById(Long id) {
+        StudyLog studyLog = findById(id);
+        studyLogRepository.delete(studyLog);
+    }
 }

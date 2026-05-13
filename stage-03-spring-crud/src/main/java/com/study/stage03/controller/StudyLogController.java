@@ -6,6 +6,8 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
 import com.study.stage03.service.StudyLogService;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,5 +48,12 @@ public class StudyLogController {
     @GetMapping("/study-logs/{id}")
     public StudyLog getStudyLog(@PathVariable Long id) {
         return studyLogService.findById(id);
+    }
+
+    @DeleteMapping("/study-logs/{id}")
+    public ResponseEntity<Void> deleteStudyLog(@PathVariable Long id) {
+        studyLogService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

@@ -52,4 +52,8 @@ public class StudyLogRepository {
 
         return null;
     }
+
+    public void delete(StudyLog studyLog) {
+        logs.remove(studyLog);
+    }
 }
