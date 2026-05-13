@@ -92,12 +92,28 @@ public class StudyLogService {
     public StudyLog update(Long id, UpdateStudyLogRequest request) {
         StudyLog studyLog = findById(id);
 
+        String title = request.getTitle() == null
+                ? studyLog.getTitle()
+                : request.getTitle();
+
+        StudyCategory category = request.getCategory() == null
+                ? studyLog.getCategory()
+                : request.getCategory();
+
+        int minutes = request.getMinutes() == null
+                ? studyLog.getMinutes()
+                : request.getMinutes();
+
+        String memo = request.getMemo() == null
+                ? studyLog.getMemo()
+                : request.getMemo();
+
         StudyLog updateLog = new StudyLog(
                 studyLog.getId(),
-                request.getTitle(),
-                request.getCategory(),
-                request.getMinutes(),
-                request.getMemo()
+                title,
+                category,
+                minutes,
+                memo
         );
 
         return studyLogRepository.update(updateLog);
