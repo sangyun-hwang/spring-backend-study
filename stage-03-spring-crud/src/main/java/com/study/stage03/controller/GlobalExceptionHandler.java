@@ -1,6 +1,8 @@
 package com.study.stage03.controller;
 
 import com.study.stage03.dto.ErrorResponse;
+import com.study.stage03.exception.StudyLogNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,5 +31,12 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.badRequest().body(errorResponse);
+    }
+
+    @ExceptionHandler(StudyLogNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleStudyLogNotFoundException(StudyLogNotFoundException exception) {
+        ErrorResponse errorResponse = new ErrorResponse(exception.getMessage(), List.of());
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 }

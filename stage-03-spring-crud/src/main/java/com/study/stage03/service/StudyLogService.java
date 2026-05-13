@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.StudyLogSummaryResponse;
+import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.repository.StudyLogRepository;
 import org.springframework.stereotype.Service;
 
@@ -73,6 +74,12 @@ public class StudyLogService {
     }
 
     public StudyLog findById(Long id) {
-        return studyLogRepository.findById(id);
+        StudyLog studyLog = studyLogRepository.findById(id);
+
+        if (studyLog == null) {
+            throw new StudyLogNotFoundException();
+        }
+
+        return studyLog;
     }
 }
