@@ -71,4 +71,8 @@ public class StudyLogService {
 
         return new StudyLogSummaryResponse(category, totalMinutes);
     }
+
+    public StudyLog findById(Long id) {
+        return studyLogRepository.findById(id);
+    }
 }

@@ -7,6 +7,7 @@ import com.study.stage03.dto.StudyLogSummaryResponse;
 import com.study.stage03.service.StudyLogService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,5 +41,10 @@ public class StudyLogController {
     @GetMapping("/study-logs/summary")
     public StudyLogSummaryResponse getSummary(@RequestParam StudyCategory category) {
         return studyLogService.getSummary(category);
+    }
+
+    @GetMapping("/study-logs/{id}")
+    public StudyLog getStudyLog(@PathVariable Long id) {
+        return studyLogService.findById(id);
     }
 }

@@ -42,4 +42,14 @@ public class StudyLogRepository {
     public List<StudyLog> findAll() {
         return logs;
     }
+
+    public StudyLog findById(Long id) {
+        for (StudyLog log : logs) {
+            if (log.getId().equals(id)) {
+                return log;
+            }
+        }
+
+        return null;
+    }
 }
