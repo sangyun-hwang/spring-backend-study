@@ -1,72 +1,77 @@
 # Curriculum
 
-이 문서는 백엔드 학습 전체 흐름을 잊지 않기 위한 기준표입니다.
+이 문서는 프론트엔드 경험을 가진 학습자가 Java/Spring 기반 백엔드와 풀스택 업무에 지원할 수 있도록 학습 방향을 기록하는 기준표입니다.
 
-권장 환경:
+목표는 최신 기술만 빠르게 훑는 것이 아니라, 풀스택/SI/전자정부프레임워크 계열 업무에서 자주 만나는 Java 웹 개발 흐름을 직접 구현하고 설명할 수 있게 되는 것입니다.
+
+## 최종 목표
+
+프론트엔드 경험을 바탕으로 Java/Spring 백엔드, DB, JSP/Spring MVC 흐름까지 다룰 수 있다는 것을 보여주는 포트폴리오를 만든다.
+
+최종 결과물은 `Study Tracker` 업무형 웹 애플리케이션으로 잡는다.
+
+- REST API 기반 CRUD
+- DB 기반 데이터 저장
+- JSP 관리자 화면
+- 로그인/세션
+- 검색/페이징
+- 게시판형 CRUD
+- 간단한 통계
+- README와 학습 기록
+
+## 권장 환경
 
 - Java 21
 - Spring Boot 3.5.x
 - Gradle
-- H2 또는 MySQL/PostgreSQL
+- H2, MySQL 또는 MariaDB
 - IntelliJ IDEA
-- Postman, curl, 또는 HTTP Client
+- Postman 또는 HTTP Client
+- JSP / Thymeleaf 중 JSP 우선
+- MyBatis 우선, JPA는 선택 확장
 
-## Stage 01. Java 콘솔 프로젝트
+## Stage 01. Java 콘솔 기초
 
-목표: Spring에 들어가기 전에 객체 분리 감각을 익힌다.
+목표: Spring에 들어가기 전 객체, 메서드, 컬렉션, 책임 분리 감각을 잡는다.
 
 학습 주제:
 
 - class, object, constructor
-- collection: `List`, `Map`
+- field, method
+- `List`, `ArrayList`
 - enum
 - exception
 - package 분리
 - 책임을 가진 객체 설계
 
-튜토리얼 목표:
-
-- 콘솔 기반 `StudyLogManager` 구현
-- 공부 기록 추가
-- 전체 목록 조회
-- 카테고리별 조회
-- 총 공부 시간 계산
-- 잘못된 입력 예외 처리
-
 완료 기준:
 
-- 최소 3개 이상의 클래스로 책임이 나뉘어 있다.
-- 사용자 입력과 핵심 로직이 한 클래스에 몰려 있지 않다.
-- 왜 클래스를 그렇게 나눴는지 설명할 수 있다.
+- `StudyLog` 객체를 직접 만들 수 있다.
+- 여러 학습 기록을 `List<StudyLog>`로 관리할 수 있다.
+- 입력/출력과 비즈니스 로직을 분리할 수 있다.
 
 ## Stage 02. HTTP와 REST API 설계
 
-목표: Spring 구현 전에 API 설계 감각을 잡는다.
+목표: Spring 구현 전에 API가 어떤 요청과 응답을 가져야 하는지 설계한다.
 
 학습 주제:
 
 - HTTP method
 - status code
+- URL과 query parameter
+- request body / response body
 - JSON
-- REST API URL 설계
-- request/response body
-- 에러 응답
-
-튜토리얼 목표:
-
-- Study Tracker API 명세 작성
-- 요청/응답 JSON 예시 작성
-- 성공/실패 status code 정리
+- REST API 설계
 
 완료 기준:
 
-- `POST`, `GET`, `PATCH`, `DELETE` API를 설계했다.
-- 에러 상황을 3개 이상 정의했다.
-- 프론트엔드가 보고 사용할 수 있는 형태로 문서화했다.
+- `POST`, `GET`, `PATCH`, `DELETE` API를 설계할 수 있다.
+- 성공/실패 status code를 설명할 수 있다.
+- Postman으로 확인할 요청/응답 예시를 작성할 수 있다.
 
-## Stage 03. Spring Boot CRUD
+## Stage 03. Spring Boot 메모리 CRUD
 
-목표: DB 없이 메모리 저장소로 REST API를 만든다.
+목표: DB 없이 메모리 저장소로 Spring Boot CRUD API를 만들며 계층 구조를 익힌다.
 
 학습 주제:
 
@@ -74,197 +79,242 @@
 - `@RestController`
 - `@GetMapping`, `@PostMapping`, `@PatchMapping`, `@DeleteMapping`
 - DTO
-- Service
-- Repository 역할
-- dependency injection
-
-튜토리얼 목표:
-
-- `StudyLog` CRUD API 구현
-- `Map<Long, StudyLog>` 기반 메모리 저장소 사용
+- validation
+- custom exception
+- `@RestControllerAdvice`
 - Controller / Service / Repository 분리
+- dependency injection
 
 완료 기준:
 
-- Controller에는 요청/응답 처리만 있다.
-- 핵심 비즈니스 로직은 Service에 있다.
-- 저장소 접근은 Repository로 분리되어 있다.
-- API를 직접 호출해서 결과를 확인했다.
+- `StudyLog` CRUD API를 구현했다.
+- Controller는 HTTP 요청/응답만 담당한다.
+- Service는 기능 흐름과 비즈니스 로직을 담당한다.
+- Repository는 데이터 저장과 조회를 담당한다.
+- 없는 id 조회/수정/삭제 시 404 응답을 반환한다.
+- 부분 수정 PATCH에서 기존 값을 유지할 수 있다.
 
-## Stage 04. SQL과 데이터베이스
+## Stage 04. SQL과 데이터베이스 기초
 
-목표: 백엔드의 데이터 저장 기초를 익힌다.
+목표: 메모리 `List` 대신 실제 DB가 왜 필요한지 이해하고 SQL로 데이터를 직접 다룬다.
 
 학습 주제:
 
-- table
+- DB, table, row, column
 - primary key
 - column type
-- `SELECT`, `INSERT`, `UPDATE`, `DELETE`
-- `WHERE`, `ORDER BY`, `COUNT`, `GROUP BY`
+- `CREATE TABLE`
+- `INSERT`, `SELECT`, `UPDATE`, `DELETE`
+- `WHERE`, `ORDER BY`
+- `COUNT`, `GROUP BY`
 
 튜토리얼 목표:
 
 - `study_logs` 테이블 설계
 - SQL로 CRUD 직접 실행
-- 카테고리별 공부 시간 합계 쿼리 작성
+- 카테고리별 학습 시간 합계 쿼리 작성
 
 완료 기준:
 
-- 테이블 DDL을 직접 작성했다.
-- CRUD SQL을 직접 작성했다.
-- 집계 쿼리를 최소 1개 이상 작성했다.
+- 테이블 DDL을 직접 작성할 수 있다.
+- CRUD SQL을 직접 작성할 수 있다.
+- 메모리 Repository와 DB 저장 방식의 차이를 설명할 수 있다.
 
-## Stage 05. Spring Data JPA
+## Stage 05. JDBC로 DB 직접 연결
 
-목표: Spring Boot API와 DB를 연결한다.
+목표: Spring이 도와주기 전에 Java가 DB와 어떻게 대화하는지 이해한다.
+
+학습 주제:
+
+- JDBC
+- connection
+- prepared statement
+- result set
+- SQL injection 기초
+- DB 연결 설정
+
+튜토리얼 목표:
+
+- `StudyLogRepository`의 메모리 `List`를 JDBC 기반 DB 조회로 교체
+- `save`, `findAll`, `findById`, `update`, `delete`를 SQL로 구현
+
+완료 기준:
+
+- Java 코드에서 SQL을 실행할 수 있다.
+- `ResultSet`을 `StudyLog` 객체로 변환할 수 있다.
+- JDBC 코드가 왜 반복적이고 불편한지 설명할 수 있다.
+
+## Stage 06. MyBatis로 CRUD 구현
+
+목표: SI/전자정부프레임워크 계열에서 자주 만나는 SQL Mapper 방식에 익숙해진다.
+
+학습 주제:
+
+- MyBatis
+- mapper interface
+- mapper XML
+- parameter binding
+- result mapping
+- 동적 SQL 기초
+
+튜토리얼 목표:
+
+- JDBC Repository를 MyBatis Mapper로 교체
+- StudyLog CRUD SQL을 mapper XML에 작성
+- 카테고리 검색과 정렬 조건 추가
+
+완료 기준:
+
+- Mapper interface와 XML의 연결 관계를 설명할 수 있다.
+- SQL이 어디에 있고 Java 코드는 어떤 역할을 하는지 설명할 수 있다.
+- MyBatis가 JDBC의 어떤 반복을 줄여주는지 설명할 수 있다.
+
+## Stage 07. Spring MVC와 JSP
+
+목표: REST API뿐 아니라 서버 사이드 렌더링 방식의 Java 웹 화면을 만든다.
+
+학습 주제:
+
+- Spring MVC
+- Controller에서 view 이름 반환
+- Model
+- JSP
+- JSTL
+- form submit
+- redirect
+
+튜토리얼 목표:
+
+- StudyLog 목록 JSP 화면
+- 등록 form
+- 상세 화면
+- 수정 form
+- 삭제 버튼
+
+완료 기준:
+
+- Controller가 JSON이 아니라 JSP 화면을 반환할 수 있다.
+- Model에 담은 데이터를 JSP에서 출력할 수 있다.
+- form 요청으로 등록/수정/삭제를 수행할 수 있다.
+
+## Stage 08. 로그인과 세션
+
+목표: 업무형 웹 애플리케이션에서 자주 쓰는 로그인/세션 흐름을 구현한다.
+
+학습 주제:
+
+- 회원가입
+- 로그인
+- session
+- password hashing
+- interceptor 기초
+- 인증과 인가 차이
+
+튜토리얼 목표:
+
+- 사용자 가입
+- 로그인/로그아웃
+- 로그인한 사용자만 StudyLog 관리
+- 비로그인 접근 차단
+
+완료 기준:
+
+- 세션 기반 로그인 흐름을 설명할 수 있다.
+- 인증과 인가의 차이를 설명할 수 있다.
+- 사용자별 데이터 분리가 동작한다.
+
+## Stage 09. 검색, 페이징, 업무형 CRUD
+
+목표: SI/전자정부프레임워크 계열에서 자주 나오는 목록 화면 패턴을 익힌다.
+
+학습 주제:
+
+- 검색 조건
+- pagination
+- sorting
+- query parameter 유지
+- 목록/상세/등록/수정/삭제 화면 흐름
+
+튜토리얼 목표:
+
+- 카테고리 검색
+- 제목 검색
+- 페이지네이션
+- 정렬
+- 검색 조건 유지
+
+완료 기준:
+
+- 목록 화면에서 검색과 페이징이 함께 동작한다.
+- URL query parameter와 화면 상태의 관계를 설명할 수 있다.
+- 업무형 CRUD 화면 흐름을 구현할 수 있다.
+
+## Stage 10. 전자정부프레임워크 감각 익히기
+
+목표: 전자정부프레임워크/SI 프로젝트에서 낯설지 않게 구조와 용어를 익힌다.
+
+학습 주제:
+
+- 전자정부프레임워크 개요
+- Spring MVC 기반 구조
+- JSP + MyBatis 조합
+- 공통 코드
+- 공통 응답/예외
+- 계층형 패키지 구조
+
+튜토리얼 목표:
+
+- 지금 만든 프로젝트를 전자정부/SI 스타일 구조와 비교
+- Controller/Service/Mapper/JSP 흐름 정리
+- 공통 코드 예시 추가
+
+완료 기준:
+
+- 전자정부프레임워크가 완전히 별개의 기술이 아니라 Spring MVC 기반 생태계라는 점을 설명할 수 있다.
+- JSP/MyBatis/Spring MVC 조합의 요청 흐름을 설명할 수 있다.
+- 지원서에서 SI/전자정부 관련 학습 경험을 구체적으로 말할 수 있다.
+
+## Stage 11. 포트폴리오 미니 프로젝트
+
+목표: 지원서에 적을 수 있는 작은 업무형 풀스택 프로젝트를 완성한다.
+
+프로젝트 후보:
+
+- 학습 기록 관리 시스템
+- 업무 일지 관리 시스템
+- 간단한 게시판 + 관리자 화면
+
+필수 기능:
+
+- 로그인/로그아웃
+- 목록/상세/등록/수정/삭제
+- 검색/페이징
+- DB CRUD
+- JSP 화면
+- REST API 일부
+- README
+
+완료 기준:
+
+- GitHub에 실행 방법이 정리되어 있다.
+- 주요 기능을 스크린샷과 함께 설명할 수 있다.
+- Controller / Service / Repository 또는 Mapper 구조를 설명할 수 있다.
+- 프론트엔드 경험과 백엔드 학습 경험을 연결해서 자기소개서에 쓸 수 있다.
+
+## Stage 12. JPA 선택 확장
+
+목표: 신입 백엔드/스타트업 계열에서도 자주 보는 JPA의 기본 감각을 익힌다.
 
 학습 주제:
 
 - Entity
 - JpaRepository
 - transaction
-- DTO 변환
-- query method
-- 날짜 범위 조회
-
-튜토리얼 목표:
-
-- 메모리 Repository를 JPA Repository로 교체
-- DB 기반 CRUD 구현
-- 카테고리별 조회
-- 날짜 범위 조회
+- 영속성 컨텍스트 기초
+- 연관관계 기초
 
 완료 기준:
 
-- Entity와 DTO를 구분했다.
-- 수정 로직을 설명할 수 있다.
-- JPA Repository가 어떤 일을 대신하는지 설명할 수 있다.
-
-## Stage 06. Validation과 예외 처리
-
-목표: 사용할 수 있는 API 품질을 만든다.
-
-학습 주제:
-
-- `@Valid`
-- Bean Validation
-- custom exception
-- `@RestControllerAdvice`
-- 일관된 에러 응답
-
-튜토리얼 목표:
-
-- 제목이 비어 있으면 400
-- 공부 시간이 0 이하이면 400
-- 없는 ID 조회 시 404
-- 에러 응답 구조 통일
-
-완료 기준:
-
-- 성공 응답과 실패 응답을 모두 확인했다.
-- 예외를 아무 곳에서나 처리하지 않고 흐름을 정리했다.
-- 에러 응답을 프론트엔드 관점에서 설명할 수 있다.
-
-## Stage 07. 인증과 인가
-
-목표: 사용자별 데이터 접근을 구현한다.
-
-학습 주제:
-
-- 회원가입
-- 로그인
-- password hashing
-- session vs JWT 개념
-- Spring Security 기본 흐름
-- authenticated user
-
-튜토리얼 목표:
-
-- 회원가입
-- 로그인
-- 내 공부 기록만 조회
-- 다른 사용자 기록 접근 차단
-
-완료 기준:
-
-- 비밀번호를 평문 저장하지 않는다.
-- 인증과 인가의 차이를 설명할 수 있다.
-- 사용자별 데이터 분리가 동작한다.
-
-## Stage 08. 테스트
-
-목표: 내가 만든 코드가 계속 맞는지 확인한다.
-
-학습 주제:
-
-- JUnit
-- unit test
-- controller test
-- repository test
-- given/when/then
-
-튜토리얼 목표:
-
-- StudyLog 생성 테스트
-- 잘못된 입력 실패 테스트
-- 없는 ID 조회 실패 테스트
-- 사용자별 조회 테스트
-
-완료 기준:
-
-- 성공 케이스와 실패 케이스가 모두 있다.
-- 테스트가 구현 세부사항에 과하게 의존하지 않는다.
-- 테스트 실패 메시지를 보고 원인을 추적할 수 있다.
-
-## Stage 09. 프론트엔드 연동 준비
-
-목표: 풀스택에서 쓰기 좋은 API로 다듬는다.
-
-학습 주제:
-
-- CORS
-- pagination
-- sorting
-- filtering
-- Swagger/OpenAPI
-- API response convention
-
-튜토리얼 목표:
-
-- Swagger 문서 생성
-- 페이지네이션 조회
-- 날짜/카테고리 필터
-- 프론트엔드에서 쓰기 좋은 응답 구조 정리
-
-완료 기준:
-
-- Swagger로 API를 확인할 수 있다.
-- 목록 API가 페이지네이션을 지원한다.
-- 프론트엔드에서 필요한 데이터 형태를 설명할 수 있다.
-
-## Stage 10. 배포
-
-목표: 내 컴퓨터 밖에서 API가 동작하게 만든다.
-
-학습 주제:
-
-- profile
-- environment variable
-- build
-- Docker 기초
-- 배포 플랫폼
-- 운영 DB 연결
-
-튜토리얼 목표:
-
-- jar build
-- API 서버 배포
-- 배포 URL로 CRUD 테스트
-- README 정리
-
-완료 기준:
-
-- 배포된 URL로 API가 동작한다.
-- 환경변수와 설정 파일의 차이를 설명할 수 있다.
-- 배포 과정과 문제 해결 내용을 기록했다.
+- MyBatis와 JPA의 차이를 대략 설명할 수 있다.
+- Entity와 DTO를 구분할 수 있다.
+- JPA는 선택 확장 단계로 다룬다.
