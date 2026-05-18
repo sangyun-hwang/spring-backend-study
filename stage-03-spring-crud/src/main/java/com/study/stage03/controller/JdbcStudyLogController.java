@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.repository.JdbcStudyLogRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,5 +29,8 @@ public class JdbcStudyLogController {
         return jdbcStudyLogRepository.findByCategory(category);
     }
 
-
+    @GetMapping("/jdbc-study-logs/{id}")
+    public StudyLog getJdbcStudyLog(@PathVariable Long id) {
+        return jdbcStudyLogRepository.findById(id);
+    }
 }
