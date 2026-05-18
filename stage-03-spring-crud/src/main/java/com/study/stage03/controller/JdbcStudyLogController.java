@@ -2,9 +2,13 @@ package com.study.stage03.controller;
 
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.repository.JdbcStudyLogRepository;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,5 +36,20 @@ public class JdbcStudyLogController {
     @GetMapping("/jdbc-study-logs/{id}")
     public StudyLog getJdbcStudyLog(@PathVariable Long id) {
         return jdbcStudyLogRepository.findById(id);
+    }
+
+    @PostMapping("/jdbc-study-logs")
+    public StudyLog createJdbcStudyLog(@Valid @RequestBody CreateStudyLogRequest request) {
+        Long nextId = jdbcStudyLogRepository.getNextId();
+
+        StudyLog studyLog = new StudyLog(
+                nextId,
+                request.getTitle(),
+                request.getCategory(),
+                request.getMinutes(),
+                request.getMemo()
+        );
+
+        return jdbcStudyLogRepository.save(studyLog);
     }
 }

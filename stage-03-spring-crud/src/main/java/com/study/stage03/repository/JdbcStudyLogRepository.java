@@ -21,6 +21,24 @@ public class JdbcStudyLogRepository {
         this.dataSource = dataSource;
     }
 
+    public Long getNextId() {
+        String sql = "SELECT COALESCE(MAX(id), 0) + 1 AS next_id FROM study_logs";
+
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery()
+        ) {
+            if (resultSet.next()) {
+                return resultSet.getLong("next_id");
+            }
+
+            throw new RuntimeException("next id를 조회할 수 없습니다.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<StudyLog> findAll() {
         String sql = "SELECT id, title, category, minutes, memo FROM study_logs";
 
@@ -95,6 +113,27 @@ public class JdbcStudyLogRepository {
 
                 return null;
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public StudyLog save(StudyLog studyLog) {
+        String sql = "INSERT INTO study_logs (id, title, category, minutes, memo) VALUES (?, ?, ?, ?, ?)";
+
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setLong(1, studyLog.getId());
+            statement.setString(2, studyLog.getTitle());
+            statement.setString(3, studyLog.getCategory().name());
+            statement.setInt(4, studyLog.getMinutes());
+            statement.setString(5, studyLog.getMemo());
+
+            statement.executeUpdate();
+
+            return studyLog;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
