@@ -138,4 +138,25 @@ public class JdbcStudyLogRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public StudyLog update(StudyLog studyLog) {
+        String sql = "UPDATE study_logs SET title = ?, category = ?, minutes = ?, memo = ? WHERE id = ?";
+
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, studyLog.getTitle());
+            statement.setString(2, studyLog.getCategory().name());
+            statement.setInt(3, studyLog.getMinutes());
+            statement.setString(4, studyLog.getMemo());
+            statement.setLong(5, studyLog.getId());
+
+            statement.executeUpdate();
+
+            return studyLog;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

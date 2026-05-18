@@ -3,9 +3,11 @@ package com.study.stage03.controller;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
+import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.repository.JdbcStudyLogRepository;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -51,5 +53,39 @@ public class JdbcStudyLogController {
         );
 
         return jdbcStudyLogRepository.save(studyLog);
+    }
+
+    @PatchMapping("/jdbc-study-logs/{id}")
+    public StudyLog updateJdbcStudyLog(
+            @PathVariable Long id,
+            @RequestBody UpdateStudyLogRequest request
+    ) {
+        StudyLog studyLog = jdbcStudyLogRepository.findById(id);
+
+        String title = request.getTitle() == null
+                ? studyLog.getTitle()
+                : request.getTitle();
+
+        StudyCategory category = request.getCategory() == null
+                ? studyLog.getCategory()
+                : request.getCategory();
+
+        int minutes = request.getMinutes() == null
+                ? studyLog.getMinutes()
+                : request.getMinutes();
+
+        String memo = request.getMemo() == null
+                ? studyLog.getMemo()
+                : request.getMemo();
+
+        StudyLog updatedLog = new StudyLog(
+                studyLog.getId(),
+                title,
+                category,
+                minutes,
+                memo
+        );
+
+        return jdbcStudyLogRepository.update(updatedLog);
     }
 }
