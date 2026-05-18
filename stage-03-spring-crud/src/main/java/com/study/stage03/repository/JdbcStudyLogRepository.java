@@ -50,13 +50,7 @@ public class JdbcStudyLogRepository {
                 ResultSet resultSet = statement.executeQuery()
         ) {
             while (resultSet.next()) {
-                Long id = resultSet.getLong("id");
-                String title = resultSet.getString("title");
-                StudyCategory category = StudyCategory.valueOf(resultSet.getString("category"));
-                int minutes = resultSet.getInt("minutes");
-                String memo = resultSet.getString("memo");
-
-                logs.add(new StudyLog(id, title, category, minutes, memo));
+                logs.add(mapRow(resultSet));
             }
 
             return logs;
@@ -76,13 +70,7 @@ public class JdbcStudyLogRepository {
             statement.setString(1, category.name());
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Long id = resultSet.getLong("id");
-                    String title = resultSet.getString("title");
-                    StudyCategory getCategory = StudyCategory.valueOf(resultSet.getString("category"));
-                    int minutes = resultSet.getInt("minutes");
-                    String memo = resultSet.getString("memo");
-
-                    logs.add(new StudyLog(id, title, getCategory, minutes, memo));
+                    logs.add(mapRow(resultSet));
                 }
             }
 
@@ -102,13 +90,7 @@ public class JdbcStudyLogRepository {
             statement.setLong(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    Long studyLogId = resultSet.getLong("id");
-                    String title = resultSet.getString("title");
-                    StudyCategory category = StudyCategory.valueOf(resultSet.getString("category"));
-                    int minutes = resultSet.getInt("minutes");
-                    String memo = resultSet.getString("memo");
-
-                    return new StudyLog(studyLogId, title, category, minutes, memo);
+                    return mapRow(resultSet);
                 }
 
                 return null;
@@ -182,5 +164,15 @@ public class JdbcStudyLogRepository {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private StudyLog mapRow(ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong("id");
+        String title = resultSet.getString("title");
+        StudyCategory category = StudyCategory.valueOf(resultSet.getString("category"));
+        int minutes = resultSet.getInt("minutes");
+        String memo = resultSet.getString("memo");
+
+        return new StudyLog(id, title, category, minutes, memo);
     }
 }
