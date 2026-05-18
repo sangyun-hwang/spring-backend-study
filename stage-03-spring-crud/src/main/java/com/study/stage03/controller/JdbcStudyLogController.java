@@ -4,6 +4,7 @@ import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
+import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.repository.JdbcStudyLogRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -64,6 +65,10 @@ public class JdbcStudyLogController {
     ) {
         StudyLog studyLog = jdbcStudyLogRepository.findById(id);
 
+        if (studyLog == null) {
+            throw new StudyLogNotFoundException();
+        }
+
         String title = request.getTitle() == null
                 ? studyLog.getTitle()
                 : request.getTitle();
@@ -88,12 +93,22 @@ public class JdbcStudyLogController {
                 memo
         );
 
-        return jdbcStudyLogRepository.update(updatedLog);
+        StudyLog updated = jdbcStudyLogRepository.update(updatedLog);
+
+        if (updated == null) {
+            throw new StudyLogNotFoundException();
+        }
+
+        return updated;
     }
 
     @DeleteMapping("/jdbc-study-logs/{id}")
     public ResponseEntity<Void> deleteJdbcStudyLog(@PathVariable Long id) {
-        jdbcStudyLogRepository.delete(id);
+        boolean deleted = jdbcStudyLogRepository.delete(id);
+
+        if (!deleted) {
+            throw new StudyLogNotFoundException();
+        }
 
         return ResponseEntity.noContent().build();
     }

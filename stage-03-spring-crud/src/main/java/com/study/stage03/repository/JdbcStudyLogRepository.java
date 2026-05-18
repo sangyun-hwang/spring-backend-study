@@ -152,7 +152,11 @@ public class JdbcStudyLogRepository {
             statement.setString(4, studyLog.getMemo());
             statement.setLong(5, studyLog.getId());
 
-            statement.executeUpdate();
+            int updatedRows = statement.executeUpdate();
+
+            if (updatedRows == 0) {
+                return null;
+            }
 
             return studyLog;
         } catch (SQLException e) {
@@ -160,7 +164,7 @@ public class JdbcStudyLogRepository {
         }
     }
 
-    public void delete(Long id) {
+    public boolean delete(Long id) {
         String sql = "DELETE FROM study_logs WHERE id = ?";
 
         try (
@@ -168,7 +172,13 @@ public class JdbcStudyLogRepository {
                 PreparedStatement statement = connection.prepareStatement(sql)
         ) {
             statement.setLong(1, id);
-            statement.executeUpdate();
+            int updatedRows = statement.executeUpdate();
+
+            if (updatedRows == 0) {
+                return false;
+            }
+
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
