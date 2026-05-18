@@ -159,4 +159,18 @@ public class JdbcStudyLogRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void delete(Long id) {
+        String sql = "DELETE FROM study_logs WHERE id = ?";
+
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setLong(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

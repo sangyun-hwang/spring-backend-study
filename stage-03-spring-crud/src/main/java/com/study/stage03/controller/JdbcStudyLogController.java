@@ -6,6 +6,8 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.repository.JdbcStudyLogRepository;
 import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,5 +89,12 @@ public class JdbcStudyLogController {
         );
 
         return jdbcStudyLogRepository.update(updatedLog);
+    }
+
+    @DeleteMapping("/jdbc-study-logs/{id}")
+    public ResponseEntity<Void> deleteJdbcStudyLog(@PathVariable Long id) {
+        jdbcStudyLogRepository.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
