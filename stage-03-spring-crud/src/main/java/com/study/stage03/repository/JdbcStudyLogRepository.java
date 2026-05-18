@@ -46,4 +46,31 @@ public class JdbcStudyLogRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public List<StudyLog> findByCategory(StudyCategory category) {
+        String sql = "SELECT id, title, category, minutes, memo FROM study_logs WHERE category = ?";
+        List<StudyLog> logs = new ArrayList<>();
+
+        try (
+                Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, category.name());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Long id = resultSet.getLong("id");
+                    String title = resultSet.getString("title");
+                    StudyCategory getCategory = StudyCategory.valueOf(resultSet.getString("category"));
+                    int minutes = resultSet.getInt("minutes");
+                    String memo = resultSet.getString("memo");
+
+                    logs.add(new StudyLog(id, title, getCategory, minutes, memo));
+                }
+            }
+
+            return logs;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

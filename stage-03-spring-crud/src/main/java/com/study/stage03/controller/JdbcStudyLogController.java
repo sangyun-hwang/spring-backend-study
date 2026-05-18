@@ -1,8 +1,10 @@
 package com.study.stage03.controller;
 
+import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.repository.JdbcStudyLogRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -16,7 +18,15 @@ public class JdbcStudyLogController {
     }
 
     @GetMapping("/jdbc-study-logs")
-    public List<StudyLog> getJdbcStudyLogs() {
-        return jdbcStudyLogRepository.findAll();
+    public List<StudyLog> getJdbcStudyLogs(
+            @RequestParam(required = false) StudyCategory category
+    ) {
+        if (category == null) {
+            return jdbcStudyLogRepository.findAll();
+        }
+
+        return jdbcStudyLogRepository.findByCategory(category);
     }
+
+
 }
