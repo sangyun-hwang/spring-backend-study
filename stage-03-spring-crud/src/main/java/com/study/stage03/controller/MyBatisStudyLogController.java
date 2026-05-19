@@ -2,7 +2,9 @@ package com.study.stage03.controller;
 
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.mapper.StudyLogMapper;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,4 +33,18 @@ public class MyBatisStudyLogController {
         return studyLogMapper.findById(id);
     }
 
+    @PostMapping
+    public StudyLog createStudyLog(@Valid @RequestBody CreateStudyLogRequest request) {
+        StudyLog studyLog = new StudyLog(
+                studyLogMapper.getNextId(),
+                request.getTitle(),
+                request.getCategory(),
+                request.getMinutes(),
+                request.getMemo()
+        );
+
+        studyLogMapper.save(studyLog);
+
+        return studyLog;
+    }
 }
