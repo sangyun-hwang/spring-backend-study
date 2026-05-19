@@ -3,6 +3,8 @@ package com.study.stage03.controller;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
+import com.study.stage03.dto.UpdateStudyLogRequest;
+import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +48,29 @@ public class MyBatisStudyLogController {
         studyLogMapper.save(studyLog);
 
         return studyLog;
+    }
+
+    @PatchMapping("/{id}")
+    public StudyLog updateStudyLog(
+            @PathVariable Long id,
+            @Valid @RequestBody UpdateStudyLogRequest request
+    ) {
+        StudyLog existingStudyLog = studyLogMapper.findById(id);
+
+        if (existingStudyLog == null) {
+            throw new StudyLogNotFoundException();
+        }
+
+        StudyLog updatedStudyLog = new StudyLog(
+                id,
+                request.getTitle() == null ? existingStudyLog.getTitle() : request.getTitle(),
+                request.getCategory() == null ? existingStudyLog.getCategory() : request.getCategory(),
+                request.getMinutes() == null ? existingStudyLog.getMinutes() : request.getMinutes(),
+                request.getMemo() == null ? existingStudyLog.getMemo() : request.getMemo()
+        );
+
+        studyLogMapper.update(updatedStudyLog);
+
+        return updatedStudyLog;
     }
 }

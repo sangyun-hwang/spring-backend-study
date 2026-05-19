@@ -5,6 +5,7 @@ import com.study.stage03.domain.StudyLog;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -24,5 +25,8 @@ public interface StudyLogMapper {
 
     @Select("SELECT COALESCE(MAX(id), 0) + 1 FROM study_logs")
     Long getNextId();
+
+    @Update("UPDATE study_logs SET title = #{title}, category = #{category}, minutes = #{minutes}, memo = #{memo} WHERE id = #{id}")
+    int update(StudyLog studyLog);
 }
 
