@@ -73,4 +73,13 @@ public class MyBatisStudyLogController {
 
         return updatedStudyLog;
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteStudyLog(@PathVariable Long id) {
+        int deleteRows = studyLogMapper.delete(id);
+
+        if (deleteRows == 0) {
+            throw new StudyLogNotFoundException();
+        }
+    }
 }

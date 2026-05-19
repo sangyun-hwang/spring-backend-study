@@ -2,10 +2,7 @@ package com.study.stage03.mapper;
 
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -28,5 +25,8 @@ public interface StudyLogMapper {
 
     @Update("UPDATE study_logs SET title = #{title}, category = #{category}, minutes = #{minutes}, memo = #{memo} WHERE id = #{id}")
     int update(StudyLog studyLog);
+
+    @Delete("DELETE FROM study_logs WHERE id = #{id}")
+    int delete(Long id);
 }
 
