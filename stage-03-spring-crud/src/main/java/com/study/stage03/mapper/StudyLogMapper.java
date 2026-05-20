@@ -17,7 +17,7 @@ public interface StudyLogMapper {
     void save(StudyLog studyLog);
 
     Long getNextId();
-    
+
     int update(StudyLog studyLog);
 
     int delete(Long id);
