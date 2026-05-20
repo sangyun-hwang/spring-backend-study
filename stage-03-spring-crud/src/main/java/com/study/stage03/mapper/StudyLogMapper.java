@@ -17,11 +17,9 @@ public interface StudyLogMapper {
     void save(StudyLog studyLog);
 
     Long getNextId();
-
-    @Update("UPDATE study_logs SET title = #{title}, category = #{category}, minutes = #{minutes}, memo = #{memo} WHERE id = #{id}")
+    
     int update(StudyLog studyLog);
 
-    @Delete("DELETE FROM study_logs WHERE id = #{id}")
     int delete(Long id);
 }
 

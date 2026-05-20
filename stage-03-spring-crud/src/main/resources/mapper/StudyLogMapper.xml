@@ -30,4 +30,18 @@
         INSERT INTO study_logs (id, title, category, minutes, memo)
         VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo})
     </insert>
+
+    <update id="update">
+        UPDATE study_logs
+        SET title = #{title},
+        category = #{category},
+        minutes = #{minutes},
+        memo = #{memo}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM study_logs
+        WHERE id = #{id}
+    </delete>
 </mapper>
