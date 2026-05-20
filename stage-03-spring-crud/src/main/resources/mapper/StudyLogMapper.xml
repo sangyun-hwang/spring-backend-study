@@ -20,4 +20,14 @@
         FROM study_logs
         WHERE category = #{category}
     </select>
+
+    <select id="getNextId" resultType="long">
+        SELECT COALESCE(MAX(id), 0) + 1
+        FROM study_logs
+    </select>
+
+    <insert id="save">
+        INSERT INTO study_logs (id, title, category, minutes, memo)
+        VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo})
+    </insert>
 </mapper>
