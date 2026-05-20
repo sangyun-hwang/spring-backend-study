@@ -11,8 +11,7 @@ public interface StudyLogMapper {
     List<StudyLog> findAll();
 
     StudyLog findById(Long id);
-
-    @Select("SELECT id, title, category, minutes, memo FROM study_logs WHERE category = #{category}")
+    
     List<StudyLog> findByCategory(StudyCategory category);
 
     @Insert("INSERT INTO study_logs (id, title, category, minutes, memo) VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo})")
