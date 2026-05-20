@@ -10,7 +10,6 @@ import java.util.List;
 public interface StudyLogMapper {
     List<StudyLog> findAll();
 
-    @Select("SELECT id, title, category, minutes, memo FROM study_logs WHERE id = #{id}")
     StudyLog findById(Long id);
 
     @Select("SELECT id, title, category, minutes, memo FROM study_logs WHERE category = #{category}")

@@ -8,4 +8,10 @@
         SELECT id, title, category, minutes, memo
         FROM study_logs
     </select>
+
+    <select id="findById" resultType="com.study.stage03.domain.StudyLog">
+        SELECT id, title, category, minutes, memo
+        FROM study_logs
+        WHERE id = #{id}
+    </select>
 </mapper>
