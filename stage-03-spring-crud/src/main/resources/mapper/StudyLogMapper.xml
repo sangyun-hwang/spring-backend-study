@@ -4,5 +4,8 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.stage03.mapper.StudyLogMapper">
-
+    <select id="findAll" resultType="com.study.stage03.domain.StudyLog">
+        SELECT id, title, category, minutes, memo
+        FROM study_logs
+    </select>
 </mapper>

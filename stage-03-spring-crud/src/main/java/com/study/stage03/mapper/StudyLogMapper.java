@@ -8,7 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface StudyLogMapper {
-    @Select("SELECT id, title, category, minutes, memo FROM study_logs")
     List<StudyLog> findAll();
 
     @Select("SELECT id, title, category, minutes, memo FROM study_logs WHERE id = #{id}")
