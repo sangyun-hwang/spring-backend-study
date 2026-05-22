@@ -41,15 +41,6 @@
         VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo})
     </insert>
 
-    <update id="update">
-        UPDATE study_logs
-        SET title = #{title},
-        category = #{category},
-        minutes = #{minutes},
-        memo = #{memo}
-        WHERE id = #{id}
-    </update>
-
     <update id="updatePartial">
         UPDATE study_logs
         <set>

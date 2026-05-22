@@ -20,8 +20,6 @@ public interface StudyLogMapper {
 
     Long getNextId();
 
-    int update(StudyLog studyLog);
-
     int updatePartial(
             @Param("id") Long id,
             @Param("request") UpdateStudyLogRequest request
