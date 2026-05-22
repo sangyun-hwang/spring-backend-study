@@ -11,6 +11,9 @@
             <if test="category != null">
                 category = #{category}
             </if>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
         </where>
     </select>
 
