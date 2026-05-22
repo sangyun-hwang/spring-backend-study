@@ -8,11 +8,9 @@ import java.util.List;
 
 @Mapper
 public interface StudyLogMapper {
-    List<StudyLog> findAll();
+    List<StudyLog> search(StudyCategory category);
 
     StudyLog findById(Long id);
-
-    List<StudyLog> findByCategory(StudyCategory category);
 
     void save(StudyLog studyLog);
 
@@ -21,7 +19,5 @@ public interface StudyLogMapper {
     int update(StudyLog studyLog);
 
     int delete(Long id);
-
-    List<StudyLog> search(StudyCategory category);
 }
 
