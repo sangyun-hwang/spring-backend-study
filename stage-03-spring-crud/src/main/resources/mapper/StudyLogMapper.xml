@@ -4,7 +4,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.stage03.mapper.StudyLogMapper">
-    <select id="search" resultType="com.study.stage03.domain.StudyLog">
+    <resultMap id="studyLogResultMap" type="com.study.stage03.domain.StudyLog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="category" column="category"/>
+        <result property="minutes" column="minutes"/>
+        <result property="memo" column="memo"/>
+    </resultMap>
+
+    <select id="search" resultMap="studyLogResultMap">
         SELECT id, title, category, minutes, memo
         FROM study_logs
         <where>
@@ -17,7 +25,7 @@
         </where>
     </select>
 
-    <select id="findById" resultType="com.study.stage03.domain.StudyLog">
+    <select id="findById" resultMap="studyLogResultMap">
         SELECT id, title, category, minutes, memo
         FROM study_logs
         WHERE id = #{id}
@@ -47,3 +55,4 @@
         WHERE id = #{id}
     </delete>
 </mapper>
+
