@@ -23,11 +23,7 @@ public class MyBatisStudyLogController {
 
     @GetMapping
     public List<StudyLog> getStudyLogs(@RequestParam(required = false) StudyCategory category) {
-        if (category == null) {
-            return studyLogMapper.findAll();
-        }
-
-        return studyLogMapper.findByCategory(category);
+        return studyLogMapper.search(category);
     }
 
     @GetMapping("/{id}")
