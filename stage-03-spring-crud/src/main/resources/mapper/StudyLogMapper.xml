@@ -50,6 +50,25 @@
         WHERE id = #{id}
     </update>
 
+    <update id="updatePartial">
+        UPDATE study_logs
+        <set>
+            <if test="request.title != null">
+                title = #{request.title},
+            </if>
+            <if test="request.category != null">
+                category = #{request.category},
+            </if>
+            <if test="request.minutes != null">
+                minutes = #{request.minutes},
+            </if>
+            <if test="request.memo != null">
+                memo = #{request.memo},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <delete id="delete">
         DELETE FROM study_logs
         WHERE id = #{id}

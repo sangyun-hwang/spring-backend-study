@@ -60,17 +60,9 @@ public class MyBatisStudyLogController {
             throw new StudyLogNotFoundException();
         }
 
-        StudyLog updatedStudyLog = new StudyLog(
-                id,
-                request.getTitle() == null ? existingStudyLog.getTitle() : request.getTitle(),
-                request.getCategory() == null ? existingStudyLog.getCategory() : request.getCategory(),
-                request.getMinutes() == null ? existingStudyLog.getMinutes() : request.getMinutes(),
-                request.getMemo() == null ? existingStudyLog.getMemo() : request.getMemo()
-        );
+        studyLogMapper.updatePartial(id, request);
 
-        studyLogMapper.update(updatedStudyLog);
-
-        return updatedStudyLog;
+        return studyLogMapper.findById(id);
     }
 
     @DeleteMapping("/{id}")

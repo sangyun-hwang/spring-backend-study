@@ -2,6 +2,7 @@ package com.study.stage03.mapper;
 
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.dto.UpdateStudyLogRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -20,6 +21,11 @@ public interface StudyLogMapper {
     Long getNextId();
 
     int update(StudyLog studyLog);
+
+    int updatePartial(
+            @Param("id") Long id,
+            @Param("request") UpdateStudyLogRequest request
+    );
 
     int delete(Long id);
 }
