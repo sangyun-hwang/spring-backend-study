@@ -48,6 +48,10 @@
     <select id="search" resultType="com.study.stage03.domain.StudyLog">
         SELECT id, title, category, minutes, memo
         FROM study_logs
-        WHERE category = #{category}
+        <where>
+            <if test="category != null">
+                category = #{category}
+            </if>
+        </where>
     </select>
 </mapper>
