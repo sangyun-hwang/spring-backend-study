@@ -44,4 +44,10 @@
         DELETE FROM study_logs
         WHERE id = #{id}
     </delete>
+
+    <select id="search" resultType="com.study.stage03.domain.StudyLog">
+        SELECT id, title, category, minutes, memo
+        FROM study_logs
+        WHERE category = #{category}
+    </select>
 </mapper>

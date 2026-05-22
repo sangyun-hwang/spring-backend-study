@@ -21,5 +21,7 @@ public interface StudyLogMapper {
     int update(StudyLog studyLog);
 
     int delete(Long id);
+
+    List<StudyLog> search(StudyCategory category);
 }
 
