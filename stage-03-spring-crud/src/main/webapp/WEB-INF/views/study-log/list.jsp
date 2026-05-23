@@ -8,5 +8,6 @@
 <body>
 <h1>Study Logs</h1>
 <p>JSP view is working.</p>
+<p>${message}</p>
 </body>
 </html>
