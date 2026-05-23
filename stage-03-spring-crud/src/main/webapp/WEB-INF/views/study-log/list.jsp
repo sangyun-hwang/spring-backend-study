@@ -8,6 +8,24 @@
 </head>
 <body>
 <h1>Study Logs</h1>
+<form method="get" action="/mvc/study-logs">
+    <label>
+        Title
+        <input type="text" name="title" value="${title}">
+    </label>
+
+    <label>
+        Category
+        <select name="category">
+            <option value="">All</option>
+            <option value="JAVA">JAVA</option>
+            <option value="SPRING">SPRING</option>
+            <option value="DATABASE">DATABASE</option>
+        </select>
+    </label>
+
+    <button type="submit">Search</button>
+</form>
 <p>JSP view is working.</p>
 <p>${message}</p>
 <table border="1">
