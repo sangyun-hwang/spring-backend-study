@@ -18,9 +18,9 @@
         Category
         <select name="category">
             <option value="">All</option>
-            <option value="JAVA">JAVA</option>
-            <option value="SPRING">SPRING</option>
-            <option value="DATABASE">DATABASE</option>
+            <option value="JAVA" ${category == 'JAVA' ? 'selected' : ''}>JAVA</option>
+            <option value="SPRING" ${category == 'SPRING' ? 'selected' : ''}>SPRING</option>
+            <option value="DATABASE" ${category == 'DATABASE' ? 'selected' : ''}>DATABASE</option>
         </select>
     </label>
 
