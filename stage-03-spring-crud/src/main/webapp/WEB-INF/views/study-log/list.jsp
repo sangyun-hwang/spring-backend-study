@@ -39,6 +39,12 @@
         </tr>
     </thead>
     <tbody>
+        <c:if test="${empty logs}">
+            <tr>
+                <td colspan="5">No study logs found.</td>
+            </tr>
+        </c:if>
+
         <c:forEach var="log" items="${logs}">
             <tr>
                 <td>${log.id}</td>
