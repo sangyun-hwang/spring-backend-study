@@ -27,4 +27,9 @@ public class StudyLogPageController {
         model.addAttribute("category", category);
         return "study-log/list";
     }
+
+    @GetMapping("/mvc/study-logs/new")
+    public String newStudyLogPage() {
+        return "study-log/new";
+    }
 }
