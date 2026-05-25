@@ -3,13 +3,11 @@ package com.study.stage03.controller;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
 import com.study.stage03.dto.CreateStudyLogRequest;
+import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class StudyLogPageController {
@@ -50,5 +48,18 @@ public class StudyLogPageController {
         studyLogMapper.save(studyLog);
 
         return "redirect:/mvc/study-logs";
+    }
+
+    @GetMapping("/mvc/study-logs/{id}/edit")
+    public String editStudyLogPage(@PathVariable Long id, Model model) {
+        StudyLog studyLog = studyLogMapper.findById(id);
+
+        if (studyLog == null) {
+            throw new StudyLogNotFoundException();
+        }
+
+        model.addAttribute("log", studyLog);
+
+        return "study-log/edit";
     }
 }
