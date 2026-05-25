@@ -79,4 +79,15 @@ public class StudyLogPageController {
 
         return "redirect:/mvc/study-logs";
     }
+
+    @PostMapping("/mvc/study-logs/{id}/delete")
+    public String deleteStudyLog(@PathVariable Long id) {
+        int deleteRows = studyLogMapper.delete(id);
+
+        if (deleteRows == 0) {
+            throw new StudyLogNotFoundException();
+        }
+
+        return "redirect:/mvc/study-logs";
+    }
 }
