@@ -36,12 +36,13 @@
             <th>Category</th>
             <th>Minutes</th>
             <th>Memo</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         <c:if test="${empty logs}">
             <tr>
-                <td colspan="5">No study logs found.</td>
+                <td colspan="6">No study logs found.</td>
             </tr>
         </c:if>
 
@@ -52,6 +53,13 @@
                 <td>${log.category}</td>
                 <td>${log.minutes}</td>
                 <td>${log.memo}</td>
+                <td>
+                    <a href="/mvc/study-logs/${log.id}/edit">Edit</a>
+
+                    <form method="post" action="/mvc/study-logs/${log.id}/delete" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
     </tbody>
