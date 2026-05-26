@@ -11,29 +11,29 @@
 <form method="post" action="/mvc/study-logs">
     <label>
         Title
-        <input type="text" name="title">
+        <input type="text" name="title" value="${request.title}">
     </label>
     <br>
 
     <label>
         Category
         <select name="category">
-            <option value="JAVA">JAVA</option>
-            <option value="SPRING">SPRING</option>
-            <option value="DATABASE">DATABASE</option>
+            <option value="JAVA" ${request.category == 'JAVA' ? 'selected' : ''}>JAVA</option>
+            <option value="SPRING" ${request.category == 'SPRING' ? 'selected' : ''}>SPRING</option>
+            <option value="DATABASE" ${request.category == 'DATABASE' ? 'selected' : ''}>DATABASE</option>
         </select>
     </label>
     <br>
 
     <label>
         Minutes
-        <input type="number" name="minutes">
+        <input type="number" name="minutes" value="${request.minutes}">
     </label>
     <br>
 
     <label>
         Memo
-        <textarea name="memo"></textarea>
+        <textarea name="memo">${request.memo}</textarea>
     </label>
     <br>
 

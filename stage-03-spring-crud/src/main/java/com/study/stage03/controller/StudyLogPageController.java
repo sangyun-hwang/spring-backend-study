@@ -6,8 +6,10 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -37,7 +39,16 @@ public class StudyLogPageController {
     }
 
     @PostMapping("/mvc/study-logs")
-    public String createStudyLog(@ModelAttribute CreateStudyLogRequest request) {
+    public String createStudyLog(
+            @Valid @ModelAttribute CreateStudyLogRequest request,
+            BindingResult bindingResult,
+            Model model
+    ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("request", request);
+            return "study-log/new";
+        }
+
         StudyLog studyLog = new StudyLog(
                 studyLogMapper.getNextId(),
                 request.getTitle(),
