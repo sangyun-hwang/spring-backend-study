@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -7,6 +8,13 @@
 </head>
 <body>
 <h1>New Study Log</h1>
+<c:if test="${not empty errors}">
+    <ul>
+        <c:forEach var="error" items="${errors}">
+            <li>${error.field}: ${error.defaultMessage}</li>
+        </c:forEach>
+    </ul>
+</c:if>
 
 <form method="post" action="/mvc/study-logs">
     <label>

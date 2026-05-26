@@ -46,6 +46,7 @@ public class StudyLogPageController {
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("request", request);
+            model.addAttribute("errors", bindingResult.getFieldErrors());
             return "study-log/new";
         }
 
