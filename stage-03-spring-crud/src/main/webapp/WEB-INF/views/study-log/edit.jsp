@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -7,33 +8,40 @@
 </head>
 <body>
 <h1>Edit Study Log</h1>
+<c:if test="${not empty errors}">
+    <ul>
+        <c:forEach var="error" items="${errors}">
+            <li>${error.field}: ${error.defaultMessage}</li>
+        </c:forEach>
+    </ul>
+</c:if>
 
-<form method="post" action="/mvc/study-logs/${log.id}/edit">
+<form method="post" action="/mvc/study-logs/${id}/edit">
     <label>
         Title
-        <input type="text" name="title" value="${log.title}">
+        <input type="text" name="title" value="${request.title}">
     </label>
     <br>
 
     <label>
         Category
         <select name="category">
-            <option value="JAVA" ${log.category == 'JAVA' ? 'selected' : ''}>JAVA</option>
-            <option value="SPRING" ${log.category == 'SPRING' ? 'selected' : ''}>SPRING</option>
-            <option value="DATABASE" ${log.category == 'DATABASE' ? 'selected' : ''}>DATABASE</option>
+            <option value="JAVA" ${request.category == 'JAVA' ? 'selected' : ''}>JAVA</option>
+            <option value="SPRING" ${request.category == 'SPRING' ? 'selected' : ''}>SPRING</option>
+            <option value="DATABASE" ${request.category == 'DATABASE' ? 'selected' : ''}>DATABASE</option>
         </select>
     </label>
     <br>
 
     <label>
         Minutes
-        <input type="number" name="minutes" value="${log.minutes}">
+        <input type="number" name="minutes" value="${request.minutes}">
     </label>
     <br>
 
     <label>
         Memo
-        <textarea name="memo">${log.memo}</textarea>
+        <textarea name="memo">${request.memo}</textarea>
     </label>
     <br>
 

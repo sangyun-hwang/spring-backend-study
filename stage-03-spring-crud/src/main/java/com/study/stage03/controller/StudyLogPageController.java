@@ -71,7 +71,8 @@ public class StudyLogPageController {
             throw new StudyLogNotFoundException();
         }
 
-        model.addAttribute("log", studyLog);
+        model.addAttribute("id", id);
+        model.addAttribute("request", studyLog);
 
         return "study-log/edit";
     }
@@ -79,8 +80,18 @@ public class StudyLogPageController {
     @PostMapping("/mvc/study-logs/{id}/edit")
     public String updateStudyLog(
             @PathVariable Long id,
-            @ModelAttribute UpdateStudyLogRequest request
+            @Valid @ModelAttribute UpdateStudyLogRequest request,
+            BindingResult bindingResult,
+            Model model
     ) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("errors", bindingResult.getFieldErrors());
+            model.addAttribute("id", id);
+            model.addAttribute("request", request);
+
+            return "study-log/edit";
+        }
+
         StudyLog studyLog = studyLogMapper.findById(id);
 
         if (studyLog == null) {
