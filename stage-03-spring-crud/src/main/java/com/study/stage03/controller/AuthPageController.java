@@ -1,5 +1,6 @@
 package com.study.stage03.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AuthPageController {
 
     @GetMapping("/mvc/login")
-    public String loginPage() {
+    public String loginPage(HttpSession session) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser != null) {
+            return "redirect:/mvc/study-logs";
+        }
+
         return "auth/login";
     }
 
@@ -19,9 +26,12 @@ public class AuthPageController {
     public String login(
             @RequestParam String username,
             @RequestParam String password,
-            Model model
+            Model model,
+            HttpSession session
     ) {
-        if (username.equals("student") && password.equals("1234")) {
+        if ("student".equals(username) && "1234".equals(password)) {
+            session.setAttribute("loginUser", username);
+
             return "redirect:/mvc/study-logs";
         } else {
             model.addAttribute("error", "Invalid username or password");
