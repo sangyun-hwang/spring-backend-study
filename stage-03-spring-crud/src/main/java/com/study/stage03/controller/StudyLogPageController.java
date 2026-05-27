@@ -6,6 +6,7 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,8 +25,15 @@ public class StudyLogPageController {
     public String studyLogListPage(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) StudyCategory category,
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         model.addAttribute("message", "Model data is working.");
         model.addAttribute("logs", studyLogMapper.search(title, category));
         model.addAttribute("title", title);

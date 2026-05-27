@@ -38,4 +38,10 @@ public class AuthPageController {
             return "auth/login";
         }
     }
+
+    @PostMapping("/mvc/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/mvc/login";
+    }
 }

@@ -64,5 +64,8 @@
         </c:forEach>
     </tbody>
 </table>
+<form method="post" action="/mvc/logout" style="display:inline;">
+    <button type="submit">Logout</button>
+</form>
 </body>
 </html>
