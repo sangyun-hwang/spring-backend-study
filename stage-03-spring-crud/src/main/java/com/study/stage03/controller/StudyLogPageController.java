@@ -44,7 +44,13 @@ public class StudyLogPageController {
     }
 
     @GetMapping("/mvc/study-logs/new")
-    public String newStudyLogPage() {
+    public String newStudyLogPage(HttpSession session) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         return "study-log/new";
     }
 
@@ -52,8 +58,15 @@ public class StudyLogPageController {
     public String createStudyLog(
             @Valid @ModelAttribute CreateStudyLogRequest request,
             BindingResult bindingResult,
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("request", request);
             model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -74,7 +87,17 @@ public class StudyLogPageController {
     }
 
     @GetMapping("/mvc/study-logs/{id}/edit")
-    public String editStudyLogPage(@PathVariable Long id, Model model) {
+    public String editStudyLogPage(
+            @PathVariable Long id,
+            Model model,
+            HttpSession session
+    ) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         StudyLog studyLog = studyLogMapper.findById(id);
 
         if (studyLog == null) {
@@ -92,8 +115,15 @@ public class StudyLogPageController {
             @PathVariable Long id,
             @Valid @ModelAttribute UpdateStudyLogRequest request,
             BindingResult bindingResult,
-            Model model
+            Model model,
+            HttpSession session
     ) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
             model.addAttribute("id", id);
@@ -114,7 +144,16 @@ public class StudyLogPageController {
     }
 
     @PostMapping("/mvc/study-logs/{id}/delete")
-    public String deleteStudyLog(@PathVariable Long id) {
+    public String deleteStudyLog(
+            @PathVariable Long id,
+            HttpSession session
+    ) {
+        Object loginUser = session.getAttribute("loginUser");
+
+        if (loginUser == null) {
+            return "redirect:/mvc/login";
+        }
+
         int deleteRows = studyLogMapper.delete(id);
 
         if (deleteRows == 0) {
