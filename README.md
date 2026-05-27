@@ -38,7 +38,11 @@
 - Stage 01: Java 콘솔 기초 완료
 - Stage 02: HTTP / REST API 설계 완료
 - Stage 03: Spring Boot 메모리 CRUD 완료
-- Stage 04: SQL / DB 기초 진행 예정
+- Stage 04: SQL / DB 기초 완료
+- Stage 05: JDBC로 MySQL CRUD 구현 완료
+- Stage 06: MyBatis, XML Mapper, 동적 SQL 완료
+- Stage 07: Spring MVC + JSP form CRUD 완료
+- Stage 08: 로그인과 세션 진행 예정
 
 ## 커밋 메시지 규칙
 
@@ -59,6 +63,10 @@
 - `[stage-02]`: HTTP/REST API 설계 작업
 - `[stage-03]`: Spring Boot CRUD 작업
 - `[stage-04]`: SQL/DB 작업
+- `[stage-05]`: JDBC 작업
+- `[stage-06]`: MyBatis 작업
+- `[stage-07]`: Spring MVC/JSP 작업
+- `[stage-08]`: 로그인/세션 작업
 - `[fix]`: 오타, 실수, 동작 수정
 
 ## 권장 폴더 구조
