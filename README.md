@@ -42,7 +42,8 @@
 - Stage 05: JDBC로 MySQL CRUD 구현 완료
 - Stage 06: MyBatis, XML Mapper, 동적 SQL 완료
 - Stage 07: Spring MVC + JSP form CRUD 완료
-- Stage 08: 로그인과 세션 진행 예정
+- Stage 08: 로그인과 세션 완료
+- Stage 09: 검색, 페이징, 업무형 CRUD 진행 예정
 
 ## 커밋 메시지 규칙
 
