@@ -8,6 +8,9 @@
 </head>
 <body>
 <h1>Study Logs</h1>
+<c:if test="${not empty loginUser}">
+    <p>${loginUser}님 로그인 중</p>
+</c:if>
 <form method="get" action="/mvc/study-logs">
     <label>
         Title

@@ -34,6 +34,8 @@ public class StudyLogPageController {
             return "redirect:/mvc/login";
         }
 
+        model.addAttribute("loginUser", loginUser);
+
         model.addAttribute("message", "Model data is working.");
         model.addAttribute("logs", studyLogMapper.search(title, category));
         model.addAttribute("title", title);
