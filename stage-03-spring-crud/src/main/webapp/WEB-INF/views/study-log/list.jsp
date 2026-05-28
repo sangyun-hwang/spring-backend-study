@@ -67,6 +67,9 @@
         </c:forEach>
     </tbody>
 </table>
+<p>page: ${page}</p>
+<p>size: ${size}</p>
+<p>offset: ${offset}</p>
 <form method="post" action="/mvc/logout" style="display:inline;">
     <button type="submit">Logout</button>
 </form>

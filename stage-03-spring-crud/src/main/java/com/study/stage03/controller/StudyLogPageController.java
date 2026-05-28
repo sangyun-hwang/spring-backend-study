@@ -26,8 +26,16 @@ public class StudyLogPageController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) StudyCategory category,
             Model model,
-            HttpSession session
+            HttpSession session,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
     ) {
+        int offset = (page - 1) * size;
+
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
+        model.addAttribute("offset", offset);
+
         Object loginUser = session.getAttribute("loginUser");
         model.addAttribute("loginUser", loginUser);
 
