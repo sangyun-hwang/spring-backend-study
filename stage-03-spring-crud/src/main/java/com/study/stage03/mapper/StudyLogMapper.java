@@ -33,5 +33,10 @@ public interface StudyLogMapper {
             @Param("size") int size,
             @Param("offset") int offset
     );
+
+    int countSearch(
+            @Param("title") String title,
+            @Param("category") StudyCategory category
+    );
 }
 

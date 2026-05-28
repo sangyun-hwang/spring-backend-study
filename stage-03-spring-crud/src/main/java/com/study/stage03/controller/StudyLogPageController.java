@@ -30,6 +30,12 @@ public class StudyLogPageController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
+        int totalCount = studyLogMapper.countSearch(title, category);
+        int totalPages = (totalCount + size - 1) / size;
+
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("totalPages", totalPages);
+
         int offset = (page - 1) * size;
 
         model.addAttribute("page", page);

@@ -11,6 +11,9 @@
 <c:if test="${not empty loginUser}">
     <p>${loginUser}님 로그인 중</p>
 </c:if>
+
+<p>totalCount: ${totalCount}</p>
+<p>totalPages: ${totalPages}</p>
 <form method="get" action="/mvc/study-logs">
     <label>
         Title
@@ -70,7 +73,9 @@
 <c:if test="${page > 1}">
     <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page-1}&size=${size}">&lt;</a>
 </c:if>
-<a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}">&gt;</a>
+<c:if test="${page < totalPages}">
+    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}">&gt;</a>
+</c:if>
 <br>
 <form method="post" action="/mvc/logout" style="display:inline;">
     <button type="submit">Logout</button>
