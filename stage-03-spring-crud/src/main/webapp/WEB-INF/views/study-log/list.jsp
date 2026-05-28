@@ -67,9 +67,11 @@
         </c:forEach>
     </tbody>
 </table>
-<p>page: ${page}</p>
-<p>size: ${size}</p>
-<p>offset: ${offset}</p>
+<c:if test="${page > 1}">
+    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page-1}&size=${size}">&lt;</a>
+</c:if>
+<a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}">&gt;</a>
+<br>
 <form method="post" action="/mvc/logout" style="display:inline;">
     <button type="submit">Logout</button>
 </form>
