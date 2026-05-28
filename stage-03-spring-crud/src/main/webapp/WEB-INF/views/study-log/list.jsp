@@ -73,6 +73,18 @@
 <c:if test="${page > 1}">
     <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page-1}&size=${size}">&lt;</a>
 </c:if>
+<c:forEach var="pageNumber" begin="1" end="${totalPages}">
+    <c:choose>
+        <c:when test="${pageNumber == page}">
+            <strong>${pageNumber}</strong>
+        </c:when>
+        <c:otherwise>
+            <a href="/mvc/study-logs?title=${title}&category=${category}&page=${pageNumber}&size=${size}">
+                ${pageNumber}
+            </a>
+        </c:otherwise>
+    </c:choose>
+</c:forEach>
 <c:if test="${page < totalPages}">
     <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}">&gt;</a>
 </c:if>
