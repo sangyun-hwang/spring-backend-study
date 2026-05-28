@@ -64,5 +64,21 @@
         DELETE FROM study_logs
         WHERE id = #{id}
     </delete>
+
+    <select id="searchPage" resultMap="studyLogResultMap">
+        SELECT id, title, category, minutes, memo
+        FROM study_logs
+        <where>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="category != null">
+                AND category = #{category}
+            </if>
+        </where>
+        ORDER BY id
+        LIMIT #{size}
+        OFFSET #{offset}
+    </select>
 </mapper>
 

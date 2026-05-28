@@ -26,5 +26,12 @@ public interface StudyLogMapper {
     );
 
     int delete(Long id);
+
+    List<StudyLog> searchPage(
+            @Param("title") String title,
+            @Param("category") StudyCategory category,
+            @Param("size") int size,
+            @Param("offset") int offset
+    );
 }
 

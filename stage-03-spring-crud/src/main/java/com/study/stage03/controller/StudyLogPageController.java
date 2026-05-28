@@ -40,7 +40,7 @@ public class StudyLogPageController {
         model.addAttribute("loginUser", loginUser);
 
         model.addAttribute("message", "Model data is working.");
-        model.addAttribute("logs", studyLogMapper.search(title, category));
+        model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset));
         model.addAttribute("title", title);
         model.addAttribute("category", category);
         return "study-log/list";
