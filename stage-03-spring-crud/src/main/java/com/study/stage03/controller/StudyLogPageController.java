@@ -42,6 +42,24 @@ public class StudyLogPageController {
         int totalPages = (totalCount + size - 1) / size;
         int offset = (page - 1) * size;
 
+        int windowSize = 5;
+        int halfWindow = windowSize / 2;
+        int startPage = page - halfWindow;
+        int endPage = page + halfWindow;
+
+        if (startPage < 1) {
+            startPage = 1;
+            endPage = Math.min(totalPages, windowSize);
+        }
+
+        if (endPage > totalPages) {
+            endPage = totalPages;
+            startPage = Math.max(1, totalPages - windowSize + 1);
+        }
+
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("totalPages", totalPages);
 
