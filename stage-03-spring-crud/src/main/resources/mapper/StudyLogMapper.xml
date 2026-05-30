@@ -76,7 +76,7 @@
                 AND category = #{category}
             </if>
         </where>
-        ORDER BY id
+        ORDER BY ${sort} ${direction}
         LIMIT #{size}
         OFFSET #{offset}
     </select>

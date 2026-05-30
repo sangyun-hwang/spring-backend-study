@@ -1,7 +1,9 @@
 package com.study.stage03.mapper;
 
+import com.study.stage03.domain.SortingDirection;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.domain.StudyLogsSort;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import org.apache.ibatis.annotations.*;
 
@@ -31,7 +33,9 @@ public interface StudyLogMapper {
             @Param("title") String title,
             @Param("category") StudyCategory category,
             @Param("size") int size,
-            @Param("offset") int offset
+            @Param("offset") int offset,
+            @Param("sort") StudyLogsSort sort,
+            @Param("direction") SortingDirection direction
     );
 
     int countSearch(

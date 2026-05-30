@@ -30,6 +30,23 @@
         </select>
     </label>
 
+    <label>
+        sorting
+        <select name="sort">
+            <option value="id" ${sort == 'id' ? 'selected' : ''}>id</option>
+            <option value="minutes" ${sort == 'minutes' ? 'selected' : ''}>minutes</option>
+            <option value="title" ${sort == 'title' ? 'selected' : ''}>title</option>
+        </select>
+    </label>
+
+    <label>
+        direction
+        <select name="direction">
+            <option value="ASC" ${direction == 'ASC' ? 'selected' : ''}>ASC</option>
+            <option value="DESC" ${direction == 'DESC' ? 'selected' : ''}>DESC</option>
+        </select>
+    </label>
+
     <button type="submit">Search</button>
 </form>
 <p>JSP view is working.</p>
@@ -71,7 +88,7 @@
     </tbody>
 </table>
 <c:if test="${page > 1}">
-    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page-1}&size=${size}">&lt;</a>
+    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page-1}&size=${size}&sort=${sort}&direction=${direction}">&lt;</a>
 </c:if>
 <c:forEach var="pageNumber" begin="${startPage}" end="${endPage}">
     <c:choose>
@@ -79,14 +96,14 @@
             <strong>${pageNumber}</strong>
         </c:when>
         <c:otherwise>
-            <a href="/mvc/study-logs?title=${title}&category=${category}&page=${pageNumber}&size=${size}">
+            <a href="/mvc/study-logs?title=${title}&category=${category}&page=${pageNumber}&size=${size}&sort=${sort}&direction=${direction}">
                 ${pageNumber}
             </a>
         </c:otherwise>
     </c:choose>
 </c:forEach>
 <c:if test="${page < totalPages}">
-    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}">&gt;</a>
+    <a href="/mvc/study-logs?title=${title}&category=${category}&page=${page+1}&size=${size}&sort=${sort}&direction=${direction}">&gt;</a>
 </c:if>
 <br>
 <form method="post" action="/mvc/logout" style="display:inline;">

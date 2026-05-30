@@ -1,7 +1,9 @@
 package com.study.stage03.controller;
 
+import com.study.stage03.domain.SortingDirection;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
+import com.study.stage03.domain.StudyLogsSort;
 import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
@@ -28,7 +30,9 @@ public class StudyLogPageController {
             Model model,
             HttpSession session,
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") StudyLogsSort sort,
+            @RequestParam(defaultValue = "ASC") SortingDirection direction
     ) {
         if (page < 1) {
             page = 1;
@@ -71,9 +75,13 @@ public class StudyLogPageController {
         model.addAttribute("loginUser", loginUser);
 
         model.addAttribute("message", "Model data is working.");
-        model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset));
+        model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset, sort, direction));
         model.addAttribute("title", title);
         model.addAttribute("category", category);
+
+        model.addAttribute("sort", sort);
+        model.addAttribute("direction", direction);
+
         return "study-log/list";
     }
 
