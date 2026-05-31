@@ -107,6 +107,7 @@
 </c:if>
 <br>
 <form method="post" action="/mvc/logout" style="display:inline;">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <button type="submit">Logout</button>
 </form>
 </body>

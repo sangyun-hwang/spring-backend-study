@@ -12,6 +12,7 @@
     <p>${error}</p>
 </c:if>
 <form method="post" action="/mvc/login">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <label>
         Username
         <input type="text" name="username">
