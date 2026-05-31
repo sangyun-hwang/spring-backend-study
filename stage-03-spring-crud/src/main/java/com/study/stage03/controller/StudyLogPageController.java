@@ -8,7 +8,6 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +27,6 @@ public class StudyLogPageController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) StudyCategory category,
             Model model,
-            HttpSession session,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") StudyLogsSort sort,
@@ -70,9 +68,6 @@ public class StudyLogPageController {
         model.addAttribute("page", page);
         model.addAttribute("size", size);
         model.addAttribute("offset", offset);
-
-        Object loginUser = session.getAttribute("loginUser");
-        model.addAttribute("loginUser", loginUser);
 
         model.addAttribute("message", "Model data is working.");
         model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset, sort, direction));

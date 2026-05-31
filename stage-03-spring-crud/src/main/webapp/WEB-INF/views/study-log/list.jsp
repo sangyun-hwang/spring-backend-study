@@ -9,9 +9,10 @@
 </head>
 <body>
 <h1>Study Logs</h1>
-<c:if test="${not empty loginUser}">
-    <p>${loginUser}님 로그인 중</p>
-</c:if>
+
+<p>
+    <sec:authentication property="name"/>님 로그인 중
+</p>
 
 <p>totalCount: ${totalCount}</p>
 <p>totalPages: ${totalPages}</p>
