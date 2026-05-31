@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -79,9 +80,12 @@
                 <td>
                     <a href="/mvc/study-logs/${log.id}/edit">Edit</a>
 
-                    <form method="post" action="/mvc/study-logs/${log.id}/delete" style="display:inline;">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <form method="post" action="/mvc/study-logs/${log.id}/delete" style="display:inline;">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </sec:authorize>
                 </td>
             </tr>
         </c:forEach>

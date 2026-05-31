@@ -19,6 +19,7 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mvc/login").permitAll()
+                        .requestMatchers("/mvc/study-logs/*/delete").hasRole("ADMIN")
                         .requestMatchers("/mvc/study-logs/**").authenticated()
                         .anyRequest().permitAll()
                 )
@@ -41,12 +42,17 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-        UserDetails user = User.withUsername("student")
+        UserDetails student = User.withUsername("student")
                 .password(passwordEncoder.encode("1234"))
                 .roles("USER")
                 .build();
 
-        return new InMemoryUserDetailsManager(user);
+        UserDetails admin = User.withUsername("admin")
+                .password(passwordEncoder.encode("1234"))
+                .roles("ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(student, admin);
     }
 
     @Bean
