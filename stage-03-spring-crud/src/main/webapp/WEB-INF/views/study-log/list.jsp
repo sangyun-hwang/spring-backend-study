@@ -11,7 +11,13 @@
 <h1>Study Logs</h1>
 
 <p>
-    <sec:authentication property="name"/>님 로그인 중
+    사용자:
+    <sec:authentication property="name"/>
+</p>
+
+<p>
+    권한:
+    <sec:authentication property="authorities"/>
 </p>
 
 <p>totalCount: ${totalCount}</p>
