@@ -8,8 +8,12 @@
 </head>
 <body>
 <h1>Login</h1>
-<c:if test="${not empty error}">
-    <p>${error}</p>
+<c:if test="${param.error != null}">
+    <p>아이디 또는 비밀번호가 올바르지 않습니다.</p>
+</c:if>
+
+<c:if test="${param.logout != null}">
+    <p>로그아웃되었습니다.</p>
 </c:if>
 <form method="post" action="/mvc/login">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
