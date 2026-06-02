@@ -35,6 +35,6 @@ public class AppUser {
     public String getPassword() { return password; }
 
     public String getRole() { return role; }
-    
+
     public boolean isEnabled() { return enabled; }
 }
