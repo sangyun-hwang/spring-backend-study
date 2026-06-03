@@ -35,6 +35,7 @@ public class SignupPageController {
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
+            model.addAttribute("signupRequest", request);
             return "auth/signup";
         }
 
@@ -42,6 +43,7 @@ public class SignupPageController {
 
         if (existingUser != null) {
             model.addAttribute("usernameError", "username already exists");
+            model.addAttribute("signupRequest", request);
             return "auth/signup";
         }
 

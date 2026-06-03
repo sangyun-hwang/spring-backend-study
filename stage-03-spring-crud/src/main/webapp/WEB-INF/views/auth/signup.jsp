@@ -26,7 +26,7 @@
 
     <label>
         Username
-        <input type="text" name="username">
+        <input type="text" name="username" value="${signupRequest.username}">
     </label>
     <br>
 

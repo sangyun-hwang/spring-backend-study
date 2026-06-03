@@ -34,5 +34,6 @@
 
     <button type="submit">Login</button>
 </form>
+<a href="/mvc/signup">Signup</a>
 </body>
 </html>
