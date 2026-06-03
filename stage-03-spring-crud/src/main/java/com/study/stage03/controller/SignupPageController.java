@@ -1,10 +1,8 @@
 package com.study.stage03.controller;
 
-import com.study.stage03.domain.AppUser;
 import com.study.stage03.dto.SignupRequest;
-import com.study.stage03.mapper.UserMapper;
+import com.study.stage03.service.SignupService;
 import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class SignupPageController {
-    private final UserMapper userMapper;
-    private final PasswordEncoder passwordEncoder;
+    private final SignupService signupService;
 
-    public SignupPageController(UserMapper userMapper, PasswordEncoder passwordEncoder) {
-        this.userMapper = userMapper;
-        this.passwordEncoder = passwordEncoder;
+    public SignupPageController(SignupService signupService) {
+        this.signupService = signupService;
     }
 
     @GetMapping("/mvc/signup")
@@ -39,22 +35,13 @@ public class SignupPageController {
             return "auth/signup";
         }
 
-        AppUser existingUser = userMapper.findByUsername(request.getUsername());
-
-        if (existingUser != null) {
+        if (signupService.isUsernameDuplicated(request.getUsername())) {
             model.addAttribute("usernameError", "username already exists");
             model.addAttribute("signupRequest", request);
             return "auth/signup";
         }
 
-        String encodedPassword = passwordEncoder.encode(request.getPassword());
-
-        userMapper.save(
-                request.getUsername(),
-                encodedPassword,
-                "ROLE_USER",
-                true
-        );
+        signupService.signup(request);
 
         return "redirect:/mvc/login?signupSuccess";
     }
