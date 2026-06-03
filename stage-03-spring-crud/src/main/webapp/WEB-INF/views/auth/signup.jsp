@@ -9,6 +9,9 @@
 <body>
 <h1>Signup</h1>
 
+<c:if test="${not empty usernameError}">
+    <p>${usernameError}</p>
+</c:if>
 <c:if test="${not empty errors}">
     <ul>
         <c:forEach var="error" items="${errors}">
@@ -16,6 +19,7 @@
         </c:forEach>
     </ul>
 </c:if>
+
 
 <form method="post" action="/mvc/signup">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

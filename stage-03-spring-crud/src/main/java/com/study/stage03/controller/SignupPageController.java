@@ -1,5 +1,6 @@
 package com.study.stage03.controller;
 
+import com.study.stage03.domain.AppUser;
 import com.study.stage03.dto.SignupRequest;
 import com.study.stage03.mapper.UserMapper;
 import jakarta.validation.Valid;
@@ -34,6 +35,13 @@ public class SignupPageController {
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
+            return "auth/signup";
+        }
+
+        AppUser existingUser = userMapper.findByUsername(request.getUsername());
+
+        if (existingUser != null) {
+            model.addAttribute("usernameError", "username already exists");
             return "auth/signup";
         }
 
