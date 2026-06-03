@@ -9,4 +9,9 @@
         FROM users
         WHERE username = #{username}
     </select>
+
+    <insert id="save">
+        INSERT INTO users (username, password, role, enabled)
+        VALUES (#{username}, #{password}, #{role}, #{enabled})
+    </insert>
 </mapper>
