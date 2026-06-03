@@ -8,6 +8,9 @@
 </head>
 <body>
 <h1>Login</h1>
+<c:if test="${param.signupSuccess != null}">
+    <p>회원가입이 완료되었습니다. 로그인해주세요.</p>
+</c:if>
 <c:if test="${param.error != null}">
     <p>아이디 또는 비밀번호가 올바르지 않습니다.</p>
 </c:if>
