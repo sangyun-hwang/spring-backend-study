@@ -10,10 +10,11 @@
         <result property="category" column="category"/>
         <result property="minutes" column="minutes"/>
         <result property="memo" column="memo"/>
+        <result property="userId" column="user_id"/>
     </resultMap>
 
     <select id="search" resultMap="studyLogResultMap">
-        SELECT id, title, category, minutes, memo
+        SELECT id, title, category, minutes, memo, user_id
         FROM study_logs
         <where>
             <if test="category != null">
@@ -26,7 +27,7 @@
     </select>
 
     <select id="findById" resultMap="studyLogResultMap">
-        SELECT id, title, category, minutes, memo
+        SELECT id, title, category, minutes, memo, user_id
         FROM study_logs
         WHERE id = #{id}
     </select>
@@ -37,8 +38,8 @@
     </select>
 
     <insert id="save">
-        INSERT INTO study_logs (id, title, category, minutes, memo)
-        VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo})
+        INSERT INTO study_logs (id, title, category, minutes, memo, user_id)
+        VALUES (#{id}, #{title}, #{category}, #{minutes}, #{memo}, #{userId})
     </insert>
 
     <update id="updatePartial">
@@ -66,7 +67,7 @@
     </delete>
 
     <select id="searchPage" resultMap="studyLogResultMap">
-        SELECT id, title, category, minutes, memo
+        SELECT id, title, category, minutes, memo, user_id
         FROM study_logs
         <where>
             user_id = #{userId}

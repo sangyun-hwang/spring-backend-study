@@ -17,6 +17,7 @@
 </c:if>
 
 <form method="post" action="/mvc/study-logs">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <label>
         Title
         <input type="text" name="title" value="${request.title}">

@@ -101,7 +101,8 @@ public class StudyLogPageController {
     public String createStudyLog(
             @Valid @ModelAttribute CreateStudyLogRequest request,
             BindingResult bindingResult,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("request", request);
@@ -109,12 +110,15 @@ public class StudyLogPageController {
             return "study-log/new";
         }
 
+        AppUser currentUser = userMapper.findByUsername(authentication.getName());
+
         StudyLog studyLog = new StudyLog(
                 studyLogMapper.getNextId(),
                 request.getTitle(),
                 request.getCategory(),
                 request.getMinutes(),
-                request.getMemo()
+                request.getMemo(),
+                currentUser.getId()
         );
 
         studyLogMapper.save(studyLog);
