@@ -35,12 +35,14 @@ public interface StudyLogMapper {
             @Param("size") int size,
             @Param("offset") int offset,
             @Param("sort") StudyLogsSort sort,
-            @Param("direction") SortingDirection direction
+            @Param("direction") SortingDirection direction,
+            @Param("userId") Long userId
     );
 
     int countSearch(
             @Param("title") String title,
-            @Param("category") StudyCategory category
+            @Param("category") StudyCategory category,
+            @Param("userId") Long userId
     );
 }
 

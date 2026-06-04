@@ -46,7 +46,11 @@ public class StudyLogPageController {
             size = 10;
         }
 
-        int totalCount = studyLogMapper.countSearch(title, category);
+        String username = authentication.getName();
+        AppUser currentUser = userMapper.findByUsername(username);
+        Long currentUserId = currentUser.getId();
+
+        int totalCount = studyLogMapper.countSearch(title, category, currentUserId);
         int totalPages = (totalCount + size - 1) / size;
         int offset = (page - 1) * size;
 
@@ -65,9 +69,6 @@ public class StudyLogPageController {
             startPage = Math.max(1, totalPages - windowSize + 1);
         }
 
-        String username = authentication.getName();
-        AppUser currentUser = userMapper.findByUsername(username);
-
         model.addAttribute("currentUser", currentUser);
 
         model.addAttribute("startPage", startPage);
@@ -81,7 +82,7 @@ public class StudyLogPageController {
         model.addAttribute("offset", offset);
 
         model.addAttribute("message", "Model data is working.");
-        model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset, sort, direction));
+        model.addAttribute("logs", studyLogMapper.searchPage(title, category, size, offset, sort, direction, currentUserId));
         model.addAttribute("title", title);
         model.addAttribute("category", category);
 
