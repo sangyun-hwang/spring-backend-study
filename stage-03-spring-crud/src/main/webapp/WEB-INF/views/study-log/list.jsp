@@ -10,15 +10,9 @@
 <body>
 <h1>Study Logs</h1>
 
-<p>
-    사용자:
-    <sec:authentication property="name"/>
-</p>
-
-<p>
-    권한:
-    <sec:authentication property="authorities"/>
-</p>
+<p>current user id: ${currentUser.id}</p>
+<p>current username: ${currentUser.username}</p>
+<p>current role: ${currentUser.role}</p>
 
 <p>totalCount: ${totalCount}</p>
 <p>totalPages: ${totalPages}</p>

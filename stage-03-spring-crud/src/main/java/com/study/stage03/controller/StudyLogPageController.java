@@ -1,5 +1,6 @@
 package com.study.stage03.controller;
 
+import com.study.stage03.domain.AppUser;
 import com.study.stage03.domain.SortingDirection;
 import com.study.stage03.domain.StudyCategory;
 import com.study.stage03.domain.StudyLog;
@@ -8,7 +9,9 @@ import com.study.stage03.dto.CreateStudyLogRequest;
 import com.study.stage03.dto.UpdateStudyLogRequest;
 import com.study.stage03.exception.StudyLogNotFoundException;
 import com.study.stage03.mapper.StudyLogMapper;
+import com.study.stage03.mapper.UserMapper;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +20,11 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class StudyLogPageController {
     private final StudyLogMapper studyLogMapper;
+    private final UserMapper userMapper;
 
-    public StudyLogPageController(StudyLogMapper studyLogMapper) {
+    public StudyLogPageController(StudyLogMapper studyLogMapper, UserMapper userMapper) {
         this.studyLogMapper = studyLogMapper;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/mvc/study-logs")
@@ -30,7 +35,8 @@ public class StudyLogPageController {
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "id") StudyLogsSort sort,
-            @RequestParam(defaultValue = "ASC") SortingDirection direction
+            @RequestParam(defaultValue = "ASC") SortingDirection direction,
+            Authentication authentication
     ) {
         if (page < 1) {
             page = 1;
@@ -58,6 +64,11 @@ public class StudyLogPageController {
             endPage = totalPages;
             startPage = Math.max(1, totalPages - windowSize + 1);
         }
+
+        String username = authentication.getName();
+        AppUser currentUser = userMapper.findByUsername(username);
+
+        model.addAttribute("currentUser", currentUser);
 
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
