@@ -80,13 +80,10 @@
                 <td>${log.memo}</td>
                 <td>
                     <a href="/mvc/study-logs/${log.id}/edit">Edit</a>
-
-                    <sec:authorize access="hasRole('ADMIN')">
-                        <form method="post" action="/mvc/study-logs/${log.id}/delete" style="display:inline;">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </sec:authorize>
+                    <form method="post" action="/mvc/study-logs/${log.id}/delete" style="display:inline;">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                        <button type="submit">Delete</button>
+                    </form>
                 </td>
             </tr>
         </c:forEach>

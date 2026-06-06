@@ -14,8 +14,8 @@ public class SecurityConfig {
         return http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/mvc/login").permitAll()
-                        .requestMatchers("/mvc/study-logs/*/delete").hasRole("ADMIN")
                         .requestMatchers("/mvc/study-logs/**").authenticated()
+                        .requestMatchers("/mybatis-study-logs/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form

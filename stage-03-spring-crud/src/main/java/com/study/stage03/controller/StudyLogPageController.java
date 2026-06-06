@@ -129,9 +129,11 @@ public class StudyLogPageController {
     @GetMapping("/mvc/study-logs/{id}/edit")
     public String editStudyLogPage(
             @PathVariable Long id,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
-        StudyLog studyLog = studyLogMapper.findById(id);
+        AppUser currentUser = userMapper.findByUsername(authentication.getName());
+        StudyLog studyLog = studyLogMapper.findByIdAndUserId(id, currentUser.getId());
 
         if (studyLog == null) {
             throw new StudyLogNotFoundException();
@@ -148,7 +150,8 @@ public class StudyLogPageController {
             @PathVariable Long id,
             @Valid @ModelAttribute UpdateStudyLogRequest request,
             BindingResult bindingResult,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("errors", bindingResult.getFieldErrors());
@@ -158,20 +161,30 @@ public class StudyLogPageController {
             return "study-log/edit";
         }
 
-        StudyLog studyLog = studyLogMapper.findById(id);
+        AppUser currentUser = userMapper.findByUsername(authentication.getName());
+        StudyLog studyLog = studyLogMapper.findByIdAndUserId(id, currentUser.getId());
 
         if (studyLog == null) {
             throw new StudyLogNotFoundException();
         }
 
-        studyLogMapper.updatePartial(id, request);
+        int updatedRows = studyLogMapper.updatePartial(id, currentUser.getId(), request);
+
+        if (updatedRows == 0) {
+            throw new StudyLogNotFoundException();
+        }
 
         return "redirect:/mvc/study-logs";
     }
 
     @PostMapping("/mvc/study-logs/{id}/delete")
-    public String deleteStudyLog(@PathVariable Long id) {
-        int deleteRows = studyLogMapper.delete(id);
+    public String deleteStudyLog(
+            @PathVariable Long id,
+            Authentication authentication
+    ) {
+        AppUser currentUser = userMapper.findByUsername(authentication.getName());
+
+        int deleteRows = studyLogMapper.delete(id, currentUser.getId());
 
         if (deleteRows == 0) {
             throw new StudyLogNotFoundException();

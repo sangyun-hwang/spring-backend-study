@@ -17,8 +17,9 @@
         SELECT id, title, category, minutes, memo, user_id
         FROM study_logs
         <where>
+            user_id = #{userId}
             <if test="category != null">
-                category = #{category}
+                AND category = #{category}
             </if>
             <if test="title != null and title != ''">
                 AND title LIKE CONCAT('%', #{title}, '%')

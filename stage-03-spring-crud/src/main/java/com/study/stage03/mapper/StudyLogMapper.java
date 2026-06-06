@@ -13,7 +13,8 @@ import java.util.List;
 public interface StudyLogMapper {
     List<StudyLog> search(
             @Param("title") String title,
-            @Param("category") StudyCategory category
+            @Param("category") StudyCategory category,
+            @Param("userId") Long userId
     );
 
     StudyLog findById(Long id);
