@@ -1,4 +1,4 @@
-﻿# Spring Backend Study
+# Spring Backend Study
 
 프론트엔드 경험을 바탕으로 Java/Spring 백엔드, 풀스택, SI/전자정부프레임워크 계열 지원을 준비하기 위한 개인 학습 레포입니다.
 
@@ -33,6 +33,7 @@
 - Spring Security 인증/인가
 - DB 기반 로그인과 회원가입
 - 검색, 페이징, 정렬
+- 사용자별 데이터 소유권
 
 ## 현재 진행 상황
 
@@ -47,7 +48,8 @@
 - Stage 09: 검색, 페이징, 정렬 완료
 - Stage 10: Spring Security 인증/인가 완료
 - Stage 11: DB 기반 로그인과 회원가입 완료
-- Stage 12: 예외 처리와 사용자별 데이터 소유권 예정
+- Stage 12: 예외 처리와 사용자별 데이터 소유권 완료
+- Stage 13: 전자정부프레임워크/SI 구조 감각 예정
 
 상세 진행표: [docs/progress.md](docs/progress.md)
 커리큘럼: [docs/curriculum.md](docs/curriculum.md)
