@@ -32,6 +32,13 @@
         WHERE id = #{id}
     </select>
 
+    <select id="findByIdAndUserId" resultMap="studyLogResultMap">
+        SELECT id, title, category, minutes, memo, user_id
+        FROM study_logs
+        WHERE id = #{id}
+            AND user_id = #{userId}
+    </select>
+
     <select id="getNextId" resultType="long">
         SELECT COALESCE(MAX(id), 0) + 1
         FROM study_logs
@@ -59,11 +66,13 @@
             </if>
         </set>
         WHERE id = #{id}
+            AND user_id = #{userId}
     </update>
 
     <delete id="delete">
         DELETE FROM study_logs
         WHERE id = #{id}
+            AND user_id = #{userId}
     </delete>
 
     <select id="searchPage" resultMap="studyLogResultMap">

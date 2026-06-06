@@ -18,16 +18,25 @@ public interface StudyLogMapper {
 
     StudyLog findById(Long id);
 
+    StudyLog findByIdAndUserId(
+            @Param("id") Long id,
+            @Param("userId") Long userId
+    );
+
     void save(StudyLog studyLog);
 
     Long getNextId();
 
     int updatePartial(
             @Param("id") Long id,
+            @Param("userId") Long userId,
             @Param("request") UpdateStudyLogRequest request
     );
 
-    int delete(Long id);
+    int delete(
+            @Param("id") Long id,
+            @Param("userId") Long userId
+    );
 
     List<StudyLog> searchPage(
             @Param("title") String title,
