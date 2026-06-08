@@ -1,10 +1,10 @@
-﻿# Progress
+# Progress
 
-마지막 업데이트: 2026-06-07
+마지막 업데이트: 2026-06-08
 
 ## 현재 상태
 
-- 현재 단계: Stage 13 시작 전
+- 현재 단계: Stage 13 진행 중
 - 최근 완료: Stage 12 예외 처리와 사용자별 데이터 소유권
 - 다음 목표: 지금까지 만든 JSP/MyBatis/Spring MVC 구조를 SI/전자정부프레임워크 관점으로 정리하기
 - 장기 목표: 프론트엔드 경험을 바탕으로 Java/Spring 풀스택, SI, 전자정부프레임워크 계열 지원이 가능한 포트폴리오 만들기
@@ -26,7 +26,7 @@
 | 10 | Spring Security 인증/인가 | Completed | 2026-06 | Security 로그인/로그아웃, CSRF, ADMIN 권한, JSP 권한 표시 |
 | 11 | DB 기반 로그인과 회원가입 | Completed | 2026-06 | users 테이블, DbUserDetailsService, 회원가입, 중복 체크, Service 분리 |
 | 12 | 예외 처리와 사용자별 데이터 소유권 | Completed | 2026-06 | 현재 로그인 사용자와 StudyLog 소유 관계 연결 |
-| 13 | 전자정부프레임워크/SI 구조 감각 | Not Started |  | JSP/MyBatis/Spring MVC 구조를 SI 관점으로 정리 |
+| 13 | 전자정부프레임워크/SI 구조 감각 | In Progress |  | JSP/MyBatis/Spring MVC 구조를 SI 관점으로 정리 |
 | 14 | 포트폴리오 미니 프로젝트 정리 | Not Started |  | README, 스크린샷, 실행 방법, 기능 설명 |
 | 15 | JPA 선택 확장 | Not Started |  | 선택 과정 |
 
@@ -93,4 +93,4 @@
 - `findById(id)`와 `findByIdAndUserId(id, userId)`의 차이를 설명할 수 있는지
 - 외래키와 `NOT NULL` 컬럼 추가 시 기존 데이터 보정이 필요한 이유를 설명할 수 있는지
 - MVC와 REST 양쪽에서 소유권 검증이 빠지면 어떤 문제가 생기는지 설명할 수 있는지
-- Stage 13에서 JSP/MyBatis/Spring MVC 구조를 SI 관점으로 연결할 수 있는지
+- Stage 13에서 JSP/MyBatis/Spring MVC 구조를 SI 관점으로 연결할 수 있는지`r`n- 전자정부프레임워크를 완전히 새로운 기술이 아니라 Spring 기반 표준 구조와 공통 기능으로 설명할 수 있는지`r`n- `브라우저 요청 -> Controller -> Service -> Mapper -> Mapper XML -> DB -> Model -> JSP -> HTML 응답` 흐름을 말로 설명할 수 있는지`r`n- 지원서에 Study Tracker 프로젝트 경험을 한 문단으로 설명할 수 있는지
